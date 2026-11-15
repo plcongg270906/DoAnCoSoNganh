@@ -56,15 +56,13 @@ Thay vì hiển thị riêng kết quả cuối cùng, ứng dụng **được t
 | **Quick Sort**     | Chọn pivot, phân hoạch và xử lý các dãy con        | O(n log n) | O(n log n) |   O(n²)    | O(log n)²  |  Không  |
 | **Heap Sort**      | Xây dựng heap, đưa phần tử lớn nhất về cuối dãy    | O(n log n) | O(n log n) | O(n log n) |   O(1)³    |  Không  |
 
-<sub>
-¹ Bubble Sort có kiểm tra dừng sớm.
+**📝 Ghi chú về độ phức tạp:**
 
-² Bộ nhớ ngăn xếp khi phân hoạch cân bằng; trường hợp xấu nhất có thể O(n).
+- **¹ Bubble Sort:** Đạt O(n) ở trường hợp tốt nhất khi có kiểm tra dừng sớm.
+- **² Quick Sort:** Bộ nhớ ngăn xếp thường là O(log n) khi phân hoạch cân bằng; trường hợp xấu nhất có thể tăng đến O(n).
+- **³ Heap Sort:** Sử dụng O(1) bộ nhớ phụ khi hiệu chỉnh heap không đệ quy.
 
-³ Với cách hiệu chỉnh heap không đệ quy.
-
-Các giá trị phản ánh cách cài đặt thông dụng được trình bày trong báo cáo.
-</sub>
+_Các giá trị trong bảng phản ánh cách cài đặt thông dụng được trình bày trong báo cáo._
 
 <details>
 <summary><b>🔎 Xem thao tác nổi bật của từng thuật toán</b></summary>
