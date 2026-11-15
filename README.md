@@ -157,19 +157,6 @@ Dữ liệu trong phạm vi cơ bản được nhập hoặc tạo trực tiếp
 
 ---
 
-## 🗺️ Lộ trình thực hiện
-
-- [x] Xác định đề tài, mục tiêu và phạm vi nghiên cứu.
-- [x] Lựa chọn sáu giải thuật và công nghệ C# / .NET Windows Forms.
-- [x] Xây dựng nội dung nền tảng cho Chương 1 và Chương 2 của báo cáo.
-- [ ] Phân tích chi tiết yêu cầu và hoàn thiện thiết kế giao diện.
-- [ ] Cài đặt các giải thuật và xây dựng bộ bước mô phỏng.
-- [ ] Hoàn thiện vùng đồ họa chung và các chức năng điều khiển.
-- [ ] Kiểm thử với các bộ dữ liệu và tình huống khác nhau.
-- [ ] Hoàn thành các chương còn lại của báo cáo và đóng gói ứng dụng.
-
----
-
 ## 📷 Giao diện chương trình
 
 _Hình ảnh và video/GIF mô phỏng sẽ được bổ sung sau khi giao diện được triển khai và có bản chạy thực tế._
