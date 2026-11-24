@@ -2,9 +2,19 @@
 {
     public class SortStep
     {
-        public string Type { get; set; } = ""; //Loại thao tác: so sánh, hoán đổi, hoàn thành...
-        public int[] Array { get; set; } = []; //Trạng thái mảng tại bước hiện tại
-        public int[] Indices { get; set; } = []; //Vị trí các phần tử cần làm nổi bật
-        public string Description { get; set; } = ""; //Giải thích thao tác đang diễn ras
+        // Loại thao tác đang thực hiện
+        public string Type { get; set; } = "";
+
+        // Trạng thái mảng tại bước hiện tại
+        public int[] Array { get; set; } = [];
+
+        // Vị trí các phần tử đang được xử lý
+        public int[] Indices { get; set; } = [];
+
+        // Vị trí các phần tử đã sắp xếp hoàn tất
+        public int[] SortedIndices { get; set; } = [];
+
+        // Giải thích thao tác đang diễn ra
+        public string Description { get; set; } = "";
     }
 }

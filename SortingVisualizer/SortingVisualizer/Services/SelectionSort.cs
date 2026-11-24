@@ -7,6 +7,12 @@ namespace SortingVisualizer.Services
         public static List<SortStep> Sort(
             int[] input, string order = "asc")
         {
+            // Kiểm tra mảng đầu vào
+            if (input == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(input), "Mảng đầu vào không được null.");
+            }
             // Kiểm tra chiều sắp xếp
             if (order != "asc" && order != "desc")
             {
@@ -18,11 +24,33 @@ namespace SortingVisualizer.Services
 
             // Sao chép mảng đầu vào
             int[] arr = (int[])input.Clone();
+
+            // Danh sách các bước mô phỏng
             List<SortStep> steps = new();
+
+            // Danh sách vị trí đã sắp xếp hoàn tất
+            List<int> sortedIndices = new();
 
             int n = arr.Length;
 
-            for (int i = 0; i < n; i++)
+            // Mảng rỗng hoặc chỉ có một phần tử
+            if (n <= 1)
+            {
+                steps.Add(new SortStep
+                {
+                    Type = "done",
+                    Array = (int[])arr.Clone(),
+                    Indices = [],
+                    SortedIndices = n == 1 ? new[] { 0 } : [],
+                    Description = n == 0
+                        ? "Mảng rỗng, không cần sắp xếp"
+                        : "Mảng chỉ có một phần tử, không cần sắp xếp"
+                });
+
+                return steps;
+            }
+
+            for (int i = 0; i < n - 1; i++)
             {
                 int selectedIndex = i;
 
@@ -34,7 +62,8 @@ namespace SortingVisualizer.Services
                         Type = "compare",
                         Array = (int[])arr.Clone(),
                         Indices = new[] { selectedIndex, j },
-                        Description = "So sánh hai phần tử"
+                        SortedIndices = sortedIndices.ToArray(),
+                        Description = $"So sánh {arr[selectedIndex]} và {arr[j]}"
                     });
 
                     // Xét theo chiều sắp xếp
@@ -46,19 +75,21 @@ namespace SortingVisualizer.Services
                     {
                         selectedIndex = j;
 
+                        // Ghi nhận phần tử được chọn
                         steps.Add(new SortStep
                         {
                             Type = "select",
                             Array = (int[])arr.Clone(),
                             Indices = new[] { selectedIndex },
+                            SortedIndices = sortedIndices.ToArray(),
                             Description = ascending
-                                ? "Tìm thấy phần tử nhỏ nhất mới"
-                                : "Tìm thấy phần tử lớn nhất mới"
+                                ? $"Tìm thấy phần tử nhỏ nhất mới: {arr[selectedIndex]}"
+                                : $"Tìm thấy phần tử lớn nhất mới: {arr[selectedIndex]}"
                         });
                     }
                 }
 
-                // Hoán đổi hai phần tử nếu cần
+                // Hoán đổi nếu cần
                 if (selectedIndex != i)
                 {
                     (arr[i], arr[selectedIndex]) =
@@ -69,19 +100,27 @@ namespace SortingVisualizer.Services
                         Type = "swap",
                         Array = (int[])arr.Clone(),
                         Indices = new[] { i, selectedIndex },
-                        Description = "Hoán đổi hai phần tử"
+                        SortedIndices = sortedIndices.ToArray(),
+                        Description = $"Hoán đổi {arr[selectedIndex]} và {arr[i]}"
                     });
                 }
 
-                // Đánh dấu phần tử đã sắp xếp
+                // Thêm vị trí i vào danh sách đã sắp xếp
+                sortedIndices.Add(i);
+
+                // Ghi nhận phần tử đã đúng vị trí
                 steps.Add(new SortStep
                 {
                     Type = "sorted",
                     Array = (int[])arr.Clone(),
                     Indices = new[] { i },
-                    Description = "Phần tử đã đúng vị trí"
+                    SortedIndices = sortedIndices.ToArray(),
+                    Description = $"Phần tử {arr[i]} đã đúng vị trí"
                 });
             }
+
+            // Đánh dấu phần tử cuối cùng đã đúng vị trí
+            sortedIndices.Add(n - 1);
 
             // Ghi nhận bước hoàn thành
             steps.Add(new SortStep
@@ -89,6 +128,7 @@ namespace SortingVisualizer.Services
                 Type = "done",
                 Array = (int[])arr.Clone(),
                 Indices = Array.Empty<int>(),
+                SortedIndices = sortedIndices.ToArray(),
                 Description = ascending
                     ? "Hoàn thành sắp xếp tăng dần"
                     : "Hoàn thành sắp xếp giảm dần"
