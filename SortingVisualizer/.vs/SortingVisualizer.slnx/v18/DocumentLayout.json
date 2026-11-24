@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "D:\\DoAnCoSoNganh\\SortingVisualizer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\controllers\\sortcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\controllers\\sortcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\sortingvisualizer.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\sortingvisualizer.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\models\\sortresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\models\\sortresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\services\\bubblesort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\services\\bubblesort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\controllers\\sortcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\controllers\\sortcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\services\\selectionsort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\services\\selectionsort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\models\\sortrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\models\\sortrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\models\\sortstep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\models\\sortstep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\models\\sortresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\models\\sortresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|d:\\doancosonganh\\sortingvisualizer\\sortingvisualizer\\models\\sortrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F98446DE-4668-B74D-17CB-81515C251A83}|SortingVisualizer\\SortingVisualizer.csproj|solutionrelative:sortingvisualizer\\models\\sortrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,17 +38,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BubbleSort.cs",
+              "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Services\\BubbleSort.cs",
+              "RelativeDocumentMoniker": "SortingVisualizer\\Services\\BubbleSort.cs",
+              "ToolTip": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Services\\BubbleSort.cs",
+              "RelativeToolTip": "SortingVisualizer\\Services\\BubbleSort.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAmwIEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-24T15:00:16.924Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "SortingVisualizer.http",
+              "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\SortingVisualizer.http",
+              "RelativeDocumentMoniker": "SortingVisualizer\\SortingVisualizer.http",
+              "ToolTip": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\SortingVisualizer.http",
+              "RelativeToolTip": "SortingVisualizer\\SortingVisualizer.http",
+              "ViewState": "AgIAALQAAAAAAAAAAAAUwMAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-11-24T14:45:26.955Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "SortController.cs",
               "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Controllers\\SortController.cs",
               "RelativeDocumentMoniker": "SortingVisualizer\\Controllers\\SortController.cs",
               "ToolTip": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Controllers\\SortController.cs",
               "RelativeToolTip": "SortingVisualizer\\Controllers\\SortController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwDgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-24T11:48:52.304Z",
               "EditorCaption": "",
@@ -48,13 +84,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "SortResponse.cs",
               "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Models\\SortResponse.cs",
               "RelativeDocumentMoniker": "SortingVisualizer\\Models\\SortResponse.cs",
               "ToolTip": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Models\\SortResponse.cs",
               "RelativeToolTip": "SortingVisualizer\\Models\\SortResponse.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAUAAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAUAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-24T11:43:39.355Z",
               "EditorCaption": "",
@@ -62,7 +98,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "SortRequest.cs",
               "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Models\\SortRequest.cs",
               "RelativeDocumentMoniker": "SortingVisualizer\\Models\\SortRequest.cs",
@@ -71,18 +107,17 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-24T11:42:00.956Z",
-              "EditorCaption": "",
               "OwnerCaption": "%2"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "SelectionSort.cs",
               "DocumentMoniker": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Services\\SelectionSort.cs",
               "RelativeDocumentMoniker": "SortingVisualizer\\Services\\SelectionSort.cs",
               "ToolTip": "D:\\DoAnCoSoNganh\\SortingVisualizer\\SortingVisualizer\\Services\\SelectionSort.cs",
               "RelativeToolTip": "SortingVisualizer\\Services\\SelectionSort.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAQwIYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-24T10:59:55.981Z",
               "EditorCaption": "",

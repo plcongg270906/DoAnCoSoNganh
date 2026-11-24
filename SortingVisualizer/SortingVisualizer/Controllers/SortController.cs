@@ -50,6 +50,11 @@ namespace SortingVisualizer.Controllers
                         request.Values, request.Order);
                     break;
 
+                case "bubble":
+                    steps = BubbleSort.Sort(
+                        request.Values, request.Order);
+                    break;
+
                 default:
                     return BadRequest(new
                     {
