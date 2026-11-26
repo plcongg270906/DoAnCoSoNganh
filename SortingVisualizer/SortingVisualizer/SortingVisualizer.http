@@ -204,3 +204,126 @@ Content-Type: application/json
 }
 
 ###
+
+
+### Kiểm thử Insertion Sort tăng dần
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [5, 2, 4, 1],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử Insertion Sort giảm dần
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [5, 2, 4, 1],
+    "order": "desc"
+}
+
+###
+
+### Insertion Sort với các trường hợp đặc biệt
+### Kiểm thử mảng rỗng
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử mảng có một phần tử
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [5],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử mảng có phần tử trùng lặp
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [3, 1, 3, 2],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử mảng có số âm
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [-3, 5, 0, -1],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử mảng null
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": null,
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử chiều sắp xếp không hợp lệ
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "insertion",
+    "values": [5, 2, 4, 1],
+    "order": "abc"
+}
+
+###
+
+    
+### Kiểm thử Merge Sort tăng dần
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+###
+
+### Kiểm thử Merge Sort giảm dần
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [5, 2, 4, 1],
+    "order": "desc"
+}
+
+###

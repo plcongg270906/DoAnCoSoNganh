@@ -55,6 +55,16 @@ namespace SortingVisualizer.Controllers
                         request.Values, request.Order);
                     break;
 
+                case "insertion":
+                    steps = InsertionSort.Sort(
+                        request.Values, request.Order);
+                    break;
+
+                case "merge":
+                    steps = MergeSort.Sort(
+                        request.Values, request.Order);
+                    break;
+                    
                 default:
                     return BadRequest(new
                     {

@@ -16,5 +16,17 @@
 
         // Giải thích thao tác đang diễn ra
         public string Description { get; set; } = "";
+
+        // Giá trị phần tử đang được giữ tạm
+        public int? KeyValue { get; set; }
+
+        // Vị trí trống về mặt logic
+        public int? HoleIndex { get; set; }
+
+        // Phạm vi đang xử lý: left, mid, right
+        public int[] MergeRange { get; set; } = [];
+
+        // Mảng phụ chứa kết quả đang trộn
+        public int[]? MergeBuffer { get; set; }
     }
 }
