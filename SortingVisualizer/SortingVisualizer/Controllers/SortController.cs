@@ -22,11 +22,11 @@ namespace SortingVisualizer.Controllers
             }
 
             // Giới hạn số lượng phần tử
-            if (request.Values.Length > 20)
+            if (request.Values.Length > 10)
             {
                 return BadRequest(new
                 {
-                    message = "Mảng không được vượt quá 20 phần tử."
+                    message = "Mảng không được vượt quá 10 phần tử."
                 });
             }
 
@@ -64,7 +64,17 @@ namespace SortingVisualizer.Controllers
                     steps = MergeSort.Sort(
                         request.Values, request.Order);
                     break;
-                    
+
+                case "quick":
+                    steps = QuickSort.Sort(
+                        request.Values, request.Order);
+                    break;
+
+                case "heap":
+                    steps = HeapSort.Sort(
+                        request.Values, request.Order);
+                    break;
+
                 default:
                     return BadRequest(new
                     {

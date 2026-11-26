@@ -28,9 +28,6 @@ namespace SortingVisualizer.Services
             // Danh sách các bước mô phỏng
             List<SortStep> steps = new();
 
-            // Danh sách vị trí đã sắp xếp hoàn tất
-            List<int> sortedIndices = new();
-
             int n = arr.Length;
 
             // Mảng rỗng hoặc chỉ có một phần tử

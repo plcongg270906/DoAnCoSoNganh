@@ -28,5 +28,14 @@
 
         // Mảng phụ chứa kết quả đang trộn
         public int[]? MergeBuffer { get; set; }
+
+        // Vị trí hiện tại của phần tử chốt
+        public int? PivotIndex { get; set; }
+
+        // Phạm vi đang phân hoạch: left, right
+        public int[] PartitionRange { get; set; } = [];
+
+        // Số lượng phần tử thuộc vùng Heap đang xử lý
+        public int? HeapSize { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 @SortingVisualizer_HostAddress = http://localhost:5007
 
-### Kiểm thử Selection Sort tăng dần
+# ==================== SELECTION SORT ====================
+
+### 01. Selection Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -10,9 +13,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử Selection Sort giảm dần
+### 02. Selection Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -22,9 +24,19 @@ Content-Type: application/json
     "order": "desc"
 }
 
-###
+### 03. Selection Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
 
-### Kiểm thử mảng rỗng
+{
+    "algorithm": "selection",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+### 04. Selection Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -34,9 +46,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có một phần tử
+### 05. Selection Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -46,9 +57,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có phần tử trùng lặp
+### 06. Selection Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -58,9 +68,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có số âm
+### 07. Selection Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -70,57 +79,43 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng null
+### 08. Selection Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "selection",
-    "values": null,
+    "values": [1, 2, 3, 4, 5],
     "order": "asc"
 }
 
-###
-
-### Kiểm thử chiều sắp xếp không hợp lệ
+### 09. Selection Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "selection",
-    "values": [5, 2, 4, 1],
-    "order": "abc"
-}
-
-###
-
-### Kiểm thử thuật toán không hợp lệ
-POST {{SortingVisualizer_HostAddress}}/api/sort
-Content-Type: application/json
-
-{
-    "algorithm": "abc",
-    "values": [5, 2, 4, 1],
+    "values": [4, 4, 4, 4],
     "order": "asc"
 }
-
 ###
+# ==================== BUBBLE SORT ====================
 
-### Kiểm thử Bubble Sort tăng dần
+### 10. Bubble Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "bubble",
-    "values": [5, 2, 4, 1, 3, 6],
+    "values": [5, 2, 4, 1],
     "order": "asc"
 }
 
-###
-
-### Kiểm thử Bubble Sort giảm dần
+### 11. Bubble Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -130,10 +125,19 @@ Content-Type: application/json
     "order": "desc"
 }
 
-###
+### 12. Bubble Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
 
-### Bubble Sort với các trường hợp đặc biệt
-### Kiểm thử mảng rỗng
+{
+    "algorithm": "bubble",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+### 13. Bubble Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -143,9 +147,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có một phần tử
+### 14. Bubble Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -155,9 +158,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có phần tử trùng lặp
+### 15. Bubble Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -167,9 +169,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có số âm
+### 16. Bubble Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -179,34 +180,32 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng null
+### 17. Bubble Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "bubble",
-    "values": null,
+    "values": [1, 2, 3, 4, 5],
     "order": "asc"
 }
 
-###
-
-### Kiểm thử chiều sắp xếp không hợp lệ
+### 18. Bubble Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "bubble",
-    "values": [5, 2, 4, 1],
-    "order": "abc"
+    "values": [4, 4, 4, 4],
+    "order": "asc"
 }
-
 ###
+# ==================== INSERTION SORT ====================
 
-
-### Kiểm thử Insertion Sort tăng dần
+### 19. Insertion Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -216,9 +215,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử Insertion Sort giảm dần
+### 20. Insertion Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -228,10 +226,19 @@ Content-Type: application/json
     "order": "desc"
 }
 
-###
+### 21. Insertion Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
 
-### Insertion Sort với các trường hợp đặc biệt
-### Kiểm thử mảng rỗng
+{
+    "algorithm": "insertion",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+### 22. Insertion Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -241,9 +248,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có một phần tử
+### 23. Insertion Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -253,9 +259,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có phần tử trùng lặp
+### 24. Insertion Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -265,9 +270,8 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng có số âm
+### 25. Insertion Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -277,34 +281,54 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử mảng null
+### 26. Insertion Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "insertion",
-    "values": null,
+    "values": [1, 2, 3, 4, 5],
     "order": "asc"
 }
 
-###
-
-### Kiểm thử chiều sắp xếp không hợp lệ
+### 27. Insertion Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "insertion",
+    "values": [4, 4, 4, 4],
+    "order": "asc"
+}
+###
+# ==================== MERGE SORT ====================
+
+### 28. Merge Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
     "values": [5, 2, 4, 1],
-    "order": "abc"
+    "order": "asc"
 }
 
-###
+### 29. Merge Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
 
-    
-### Kiểm thử Merge Sort tăng dần
+{
+    "algorithm": "merge",
+    "values": [5, 2, 4, 1],
+    "order": "desc"
+}
+
+### 30. Merge Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
@@ -314,16 +338,329 @@ Content-Type: application/json
     "order": "asc"
 }
 
-###
-
-### Kiểm thử Merge Sort giảm dần
+### 31. Merge Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
 POST {{SortingVisualizer_HostAddress}}/api/sort
 Content-Type: application/json
 
 {
     "algorithm": "merge",
+    "values": [],
+    "order": "asc"
+}
+
+### 32. Merge Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [5],
+    "order": "asc"
+}
+
+### 33. Merge Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [3, 1, 3, 2],
+    "order": "asc"
+}
+
+### 34. Merge Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [-3, 5, 0, -1],
+    "order": "asc"
+}
+
+### 35. Merge Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [1, 2, 3, 4, 5],
+    "order": "asc"
+}
+
+### 36. Merge Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "merge",
+    "values": [4, 4, 4, 4],
+    "order": "asc"
+}
+###
+# ==================== QUICK SORT ====================
+
+### 37. Quick Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [5, 2, 4, 1],
+    "order": "asc"
+}
+
+### 38. Quick Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
     "values": [5, 2, 4, 1],
     "order": "desc"
+}
+
+### 39. Quick Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+### 40. Quick Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [],
+    "order": "asc"
+}
+
+### 41. Quick Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [5],
+    "order": "asc"
+}
+
+### 42. Quick Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [3, 1, 3, 2],
+    "order": "asc"
+}
+
+### 43. Quick Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [-3, 5, 0, -1],
+    "order": "asc"
+}
+
+### 44. Quick Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [1, 2, 3, 4, 5],
+    "order": "asc"
+}
+
+### 45. Quick Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "quick",
+    "values": [4, 4, 4, 4],
+    "order": "asc"
+}
+###
+# ==================== HEAP SORT ====================
+
+### 46. Heap Sort | Mảng chẵn - tăng dần
+# Expected: 200 OK; sorted = [1, 2, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [5, 2, 4, 1],
+    "order": "asc"
+}
+
+### 47. Heap Sort | Mảng chẵn - giảm dần
+# Expected: 200 OK; sorted = [5, 4, 2, 1]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [5, 2, 4, 1],
+    "order": "desc"
+}
+
+### 48. Heap Sort | Mảng lẻ
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [5, 2, 4, 1, 3],
+    "order": "asc"
+}
+
+### 49. Heap Sort | Mảng rỗng
+# Expected: 200 OK; sorted = []; comparisons = swaps = moves = 0
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [],
+    "order": "asc"
+}
+
+### 50. Heap Sort | Một phần tử
+# Expected: 200 OK; sorted = [5]; comparisons = swaps = moves = 0
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [5],
+    "order": "asc"
+}
+
+### 51. Heap Sort | Phần tử trùng lặp
+# Expected: 200 OK; sorted = [1, 2, 3, 3]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [3, 1, 3, 2],
+    "order": "asc"
+}
+
+### 52. Heap Sort | Số âm và số 0
+# Expected: 200 OK; sorted = [-3, -1, 0, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [-3, 5, 0, -1],
+    "order": "asc"
+}
+
+### 53. Heap Sort | Mảng đã tăng dần
+# Expected: 200 OK; sorted = [1, 2, 3, 4, 5]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [1, 2, 3, 4, 5],
+    "order": "asc"
+}
+
+### 54. Heap Sort | Tất cả phần tử bằng nhau
+# Expected: 200 OK; sorted = [4, 4, 4, 4]
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "heap",
+    "values": [4, 4, 4, 4],
+    "order": "asc"
+}
+###
+# ==================== KIỂM TRA LỖI CHUNG CỦA API ====================
+
+### 55. Mảng null
+# Expected: 400 Bad Request
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "selection",
+    "values": null,
+    "order": "asc"
+}
+
+### 56. Chiều sắp xếp không hợp lệ
+# Expected: 400 Bad Request
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "selection",
+    "values": [5, 2, 4, 1],
+    "order": "abc"
+}
+
+### 57. Thuật toán không hợp lệ
+# Expected: 400 Bad Request
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "abc",
+    "values": [5, 2, 4, 1],
+    "order": "asc"
+}
+
+### 58. Vượt giới hạn 10 phần tử (11 phần tử)
+# Expected: 400 Bad Request
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "selection",
+    "values": [51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+    "order": "asc"
+}
+
+### 59. Phần tử sai kiểu dữ liệu
+# Expected: 400 Bad Request
+POST {{SortingVisualizer_HostAddress}}/api/sort
+Content-Type: application/json
+
+{
+    "algorithm": "selection",
+    "values": [5, "abc", 4, 1],
+    "order": "asc"
 }
 
 ###

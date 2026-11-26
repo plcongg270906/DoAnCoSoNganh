@@ -29,7 +29,7 @@
         // Số lần hoán đổi
         public int Swaps { get; set; }
 
-        // Số lần di chuyển hoặc ghi phần tử
+        // Số bước dịch chuyển phần tử (Type = "move")
         public int Moves { get; set; }
     }
 }

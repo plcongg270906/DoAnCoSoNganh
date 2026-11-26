@@ -115,12 +115,7 @@ namespace SortingVisualizer.Services
             }
 
             // Đánh dấu tất cả vị trí đã hoàn thành
-            sortedIndices.Clear();
-
-            for (int i = 0; i < n; i++)
-            {
-                sortedIndices.Add(i);
-            }
+            sortedIndices = Enumerable.Range(0, n).ToList();
 
             // Ghi nhận bước hoàn thành
             steps.Add(new SortStep
