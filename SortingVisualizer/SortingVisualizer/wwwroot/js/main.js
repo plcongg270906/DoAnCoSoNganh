@@ -20,6 +20,8 @@ import { sortArray } from "./api.js";
 
 import { Visualizer } from "./visualizer.js";
 
+import { Player } from "./player.js";
+
 // ==================== KHỞI TẠO ====================
 
 // Hàm lấy phần tử HTML theo id
@@ -37,8 +39,8 @@ let requestVersion = 0;
 // Khởi tạo bộ hiển thị mô phỏng
 const visualizer = new Visualizer();
 
-// Vị trí frame hiện tại
-let previewIndex = 0;
+// Khởi tạo bộ điều khiển mô phỏng
+const player = new Player(showPreview);
 
 // Lấy danh sách 6 nút lựa chọn thuật toán
 const algorithmButtons =
@@ -351,10 +353,14 @@ function invalidateSortResult() {
     // Bỏ qua các phản hồi API cũ nếu có
     requestVersion++;
 
+    // Dừng và xóa trạng thái bộ điều khiển
+    player.clear();
+
     // Xóa mô phỏng trước đó
     visualizer.clear();
 
-    previewIndex = 0;
+    // Khôi phục tên nút bắt đầu
+    $("play-btn").textContent = "Bắt đầu";
 
     // Đặt lại bộ điều khiển
     $("progress-slider").value = 0;
@@ -505,13 +511,19 @@ $("sort-form").addEventListener("submit", async event => {
         // Chuẩn bị các frame và tạo các cột
         visualizer.load(sortResult);
 
-        // Áp dụng tốc độ hiện tại
-        visualizer.setSpeed(
-            Number($("speed-select").value)
+        // Lấy tốc độ đang được chọn
+        const speed = Number(
+            $("speed-select").value
         );
 
-        // Hiển thị trạng thái ban đầu
-        showPreview(0, false);
+        // Đồng bộ tốc độ animation
+        visualizer.setSpeed(speed);
+
+        // Đồng bộ tốc độ chuyển bước
+        player.setSpeed(speed);
+
+        // Nạp tổng số bước cho bộ điều khiển
+        player.load(sortResult.steps.length);
 
         // Kiểm tra dữ liệu trong Console
         console.log("Kết quả từ Backend:", sortResult);
@@ -723,8 +735,9 @@ function highlightCode(step, index) {
 
 // ==================== HIỂN THỊ FRAME HIỆN TẠI ====================
 
-function showPreview(index, animate = true) {
+function showPreview(index, animate = true, state = "ready") {
 
+    // Kiểm tra đã có dữ liệu chưa
     if (!sortResult) {
 
         return;
@@ -732,11 +745,9 @@ function showPreview(index, animate = true) {
 
     const total = sortResult.steps.length;
 
-    // Giới hạn vị trí frame
-    previewIndex = Math.max(
-        0,
-        Math.min(index, total)
-    );
+
+    // Vị trí bước hiện tại
+    const previewIndex = index;
 
 
     // Hiển thị các cột
@@ -751,34 +762,44 @@ function showPreview(index, animate = true) {
     }
 
 
-    // Cập nhật lời giải thích
+    // ==================== MÔ TẢ THAO TÁC ====================
+
     $("step-description").textContent =
         step.description;
 
 
-    // Tính thống kê từ đầu đến bước hiện tại
+    // ==================== THỐNG KÊ ====================
+
+    // Lấy các bước đã thực hiện
     const processed = sortResult.steps.slice(
         0,
         previewIndex
     );
 
+
+    // Số lần so sánh
     $("comparison-count").textContent =
         processed.filter(
             step => step.type === "compare"
         ).length;
 
+
+    // Số lần hoán đổi
     $("swap-count").textContent =
         processed.filter(
             step => step.type === "swap"
         ).length;
 
+
+    // Số lần dịch chuyển
     $("move-count").textContent =
         processed.filter(
             step => step.type === "move"
         ).length;
 
 
-    // Cập nhật tiến trình
+    // ==================== THANH TIẾN TRÌNH ====================
+
     $("step-count").textContent =
         `${previewIndex} / ${total}`;
 
@@ -790,51 +811,121 @@ function showPreview(index, animate = true) {
     $("progress-slider").disabled = false;
 
 
-    // Cập nhật các nút điều khiển
+    // ==================== TRẠNG THÁI MÔ PHỎNG ====================
+
+    const playing = state === "playing";
+
+    const paused = state === "paused";
+
+    const done = state === "done";
+
+
+    // ==================== CẬP NHẬT CÁC NÚT ====================
+
+    // Nút bắt đầu
+    $("play-btn").disabled = playing;
+
+    // Nút tạm dừng
+    $("pause-btn").disabled = !playing;
+
+    // Nút bước trước
     $("previous-btn").disabled =
         previewIndex === 0;
 
+    // Nút bước tiếp
     $("next-btn").disabled =
         previewIndex === total;
 
+    // Nút đặt lại
     $("reset-btn").disabled =
-        previewIndex === 0;
+        previewIndex === 0 && !playing;
 
 
-    // Cập nhật trạng thái mô phỏng
-    if (step.type === "done") {
+    // ==================== TÊN NÚT BẮT ĐẦU ====================
 
-        $("simulation-status").textContent =
-            "Hoàn thành";
+    if (done) {
 
-        $("simulation-status").dataset.state =
-            "done";
+        $("play-btn").textContent =
+            "Chạy lại";
+
+    } else if (playing) {
+
+        $("play-btn").textContent =
+            "Đang chạy";
+
+    } else if (paused) {
+
+        $("play-btn").textContent =
+            "Tiếp tục";
 
     } else {
 
-        $("simulation-status").textContent =
-            previewIndex === 0
-                ? "Sẵn sàng"
-                : "Đang xem từng bước";
-
-        $("simulation-status").dataset.state =
-            "ready";
+        $("play-btn").textContent =
+            "Bắt đầu";
     }
 
 
-    // Hiển thị biến thuật toán
+    // ==================== HIỂN THỊ TRẠNG THÁI ====================
+
+    const status = $("simulation-status");
+
+    if (done) {
+
+        status.textContent = "Hoàn thành";
+
+        status.dataset.state = "done";
+
+    } else if (playing) {
+
+        status.textContent = "Đang mô phỏng";
+
+        status.dataset.state = "playing";
+
+    } else if (paused) {
+
+        status.textContent = "Tạm dừng";
+
+        status.dataset.state = "paused";
+
+    } else {
+
+        status.textContent = "Sẵn sàng";
+
+        status.dataset.state = "ready";
+    }
+
+
+    // ==================== BIẾN VÀ MÃ NGUỒN ====================
+
+    // Cập nhật các biến thuật toán
     renderVariables(step);
 
-    // Tô sáng mã nguồn
+    // Tô sáng mã nguồn C#
     highlightCode(step, previewIndex);
 }
 
 
-// ==================== BƯỚC TIẾP THEO ====================
+// ==================== BẮT ĐẦU / TIẾP TỤC ====================
+
+$("play-btn").addEventListener("click", () => {
+
+    player.play();
+});
+
+
+// ==================== TẠM DỪNG ====================
+
+$("pause-btn").addEventListener("click", () => {
+
+    player.pause();
+});
+
+
+// ==================== BƯỚC TIẾP ====================
 
 $("next-btn").addEventListener("click", () => {
 
-    showPreview(previewIndex + 1);
+    player.next();
 });
 
 
@@ -842,7 +933,7 @@ $("next-btn").addEventListener("click", () => {
 
 $("previous-btn").addEventListener("click", () => {
 
-    showPreview(previewIndex - 1);
+    player.previous();
 });
 
 
@@ -850,7 +941,7 @@ $("previous-btn").addEventListener("click", () => {
 
 $("reset-btn").addEventListener("click", () => {
 
-    showPreview(0, false);
+    player.reset();
 });
 
 
@@ -858,10 +949,11 @@ $("reset-btn").addEventListener("click", () => {
 
 $("progress-slider").addEventListener("input", () => {
 
-    showPreview(
-        Number($("progress-slider").value),
-        false
+    const index = Number(
+        $("progress-slider").value
     );
+
+    player.seek(index, false);
 });
 
 
@@ -869,10 +961,17 @@ $("progress-slider").addEventListener("input", () => {
 
 $("speed-select").addEventListener("change", () => {
 
-    visualizer.setSpeed(
-        Number($("speed-select").value)
+    const speed = Number(
+        $("speed-select").value
     );
+
+    // Thay đổi tốc độ chuyển động
+    visualizer.setSpeed(speed);
+
+    // Thay đổi tốc độ chuyển bước
+    player.setSpeed(speed);
 });
+
 
 // ==================== KHỞI CHẠY ====================
 

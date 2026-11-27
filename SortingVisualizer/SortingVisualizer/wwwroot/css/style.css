@@ -1065,3 +1065,19 @@ input[type="range"] {
 #bars-container {
     font-variant-numeric: tabular-nums;
 }
+/* 14. TRẠNG THÁI BỘ ĐIỀU KHIỂN MÔ PHỎNG */
+
+.status[data-state="paused"] {
+    color: var(--flag);
+    border-color: var(--flag);
+}
+
+.status[data-state="playing"] {
+    color: var(--compare);
+    border-color: var(--compare);
+}
+
+.status[data-state="done"] {
+    color: var(--sorted);
+    border-color: var(--sorted);
+}
