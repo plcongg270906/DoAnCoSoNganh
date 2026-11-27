@@ -1,0 +1,1067 @@
+﻿/* 1. BIẾN GIAO DIỆN */
+:root {
+    color-scheme: dark;
+    --bg: #0a0915;
+    --text: #f4f3fb;
+    --muted: #a9acc8;
+    --bar: #a78bfa;
+    --compare: #22d3ee;
+    --swap: #f472b6;
+    --sorted: #34d399;
+    --flag: #fbbf24;
+    --on-accent: #0a0915;
+    --surface: rgba(255, 255, 255, .04);
+    --surface-strong: rgba(255, 255, 255, .07);
+    --edge: rgba(255, 255, 255, .10);
+    --code-bg: rgba(8, 7, 18, .60);
+    --shadow: rgba(0, 0, 0, .32);
+    --ring: #c4b5fd;
+    --radius: 20px;
+    --duration: 520ms;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+    :root[data-theme="light"] {
+        color-scheme: light;
+        --bg: #f8f6ff;
+        --text: #1b1f36;
+        --muted: #4f5674;
+        --bar: #6d28d9;
+        --compare: #0e7490;
+        --swap: #be185d;
+        --sorted: #047857;
+        --flag: #b45309;
+        --on-accent: #fff;
+        --surface: rgba(255, 255, 255, .72);
+        --surface-strong: rgba(255, 255, 255, .92);
+        --edge: rgba(28, 32, 53, .11);
+        --code-bg: rgba(246, 244, 255, .9);
+        --shadow: rgba(76, 60, 160, .12);
+        --ring: #6d28d9;
+    }
+
+/* 2. THIẾT LẬP CHUNG */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--bar) 18%, transparent), transparent 48%), radial-gradient(ellipse at 100% 12%, color-mix(in srgb, var(--compare) 12%, transparent), transparent 44%), radial-gradient(ellipse at 75% 100%, color-mix(in srgb, var(--swap) 12%, transparent), transparent 48%), var(--bg);
+    background-attachment: fixed;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1 {
+    font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+    line-height: 1.3;
+    letter-spacing: -.035em;
+}
+
+h2 {
+    font-size: 1.12rem;
+    line-height: 1.4;
+}
+
+h3 {
+    font-size: .95rem;
+}
+
+a {
+    color: var(--bar);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+button, input, select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+    button:disabled, input:disabled {
+        opacity: .42;
+        cursor: not-allowed;
+    }
+
+:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+}
+
+/* 3. HEADER VÀ BỐ CỤC */
+.header {
+    border-bottom: 1px solid var(--edge);
+    background: var(--surface);
+}
+
+.header-container, .container {
+    width: min(1440px, calc(100% - 48px));
+    margin-inline: auto;
+}
+
+.header-container {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 16px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--text);
+}
+
+    .brand:hover {
+        text-decoration: none;
+    }
+
+.logo {
+    display: grid;
+    place-items: center;
+    flex: 0 0 46px;
+    height: 46px;
+    border-radius: 15px;
+    background: linear-gradient(140deg, var(--bar), var(--compare));
+    color: var(--on-accent);
+    font-size: 1.05rem;
+    font-weight: 850;
+}
+
+.brand-text p {
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.container {
+    display: grid;
+    gap: 20px;
+    padding-block: 28px 40px;
+}
+
+.panel, .stat-card {
+    min-width: 0;
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: 0 12px 32px -22px var(--shadow);
+    backdrop-filter: blur(18px);
+}
+
+.panel {
+    padding: clamp(16px, 2vw, 24px);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* 4. NÚT BẤM VÀ CHỌN THUẬT TOÁN */
+.btn, .algorithm-btn, #theme-toggle, .github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    background: var(--surface-strong);
+    color: var(--text);
+    font-size: .88rem;
+    font-weight: 650;
+    line-height: 1.35;
+    transition: background-color 160ms, border-color 160ms, transform 160ms, box-shadow 160ms;
+}
+
+    .btn:hover:not(:disabled), .algorithm-btn:hover:not(:disabled), #theme-toggle:hover, .github-link:hover {
+        border-color: var(--bar);
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--bar);
+    color: var(--on-accent);
+    border-color: transparent;
+}
+
+    .btn-primary:hover:not(:disabled) {
+        box-shadow: 0 5px 24px color-mix(in srgb, var(--bar) 28%, transparent);
+    }
+
+.algorithm-section h2 {
+    margin-bottom: 12px;
+}
+
+.algorithm-list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.algorithm-btn {
+    min-height: 50px;
+    text-align: center;
+}
+
+    .algorithm-btn.active {
+        border-color: var(--bar);
+        color: var(--bar);
+        background: color-mix(in srgb, var(--bar) 15%, var(--surface));
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bar) 20%, transparent);
+    }
+
+/* 5. DỮ LIỆU ĐẦU VÀO */
+.input-section h2 {
+    margin-bottom: 16px;
+}
+
+#sort-form {
+    display: grid;
+    gap: 16px;
+}
+
+.input-group {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+label {
+    color: var(--muted);
+    font-size: .84rem;
+    font-weight: 600;
+}
+
+input:not([type="range"]), select {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--edge);
+    border-radius: 10px;
+    background: var(--surface-strong);
+}
+
+    input:not([type="range"]):focus, select:focus {
+        border-color: var(--bar);
+    }
+
+input::placeholder {
+    color: var(--muted);
+}
+
+select option {
+    background: var(--bg);
+    color: var(--text);
+}
+
+#array-input {
+    font-family: Consolas, monospace;
+    font-size: 1rem;
+}
+
+.input-hint {
+    color: var(--muted);
+    font-size: .78rem;
+}
+
+.input-options {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.input-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.error-message {
+    color: var(--swap);
+    border: 1px solid var(--swap);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: .88rem;
+}
+
+/* 6. VÙNG MÔ PHỎNG VÀ ANIMATION */
+.workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.status {
+    border: 1px solid var(--edge);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: .78rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+    .status[data-state="playing"] {
+        color: var(--compare);
+    }
+
+    .status[data-state="done"] {
+        color: var(--sorted);
+    }
+
+    .status[data-state="error"] {
+        color: var(--swap);
+    }
+
+.visualization-area {
+    /* JS sẽ cập nhật --zero-position và vị trí/kích thước từng cột. */
+    --zero-position: 100%;
+    --plot-height: 300px;
+    --plot-bottom: 38px;
+    position: relative;
+    min-height: calc(var(--plot-height) + var(--plot-bottom) + 24px);
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    background: var(--code-bg);
+    overflow: hidden;
+}
+
+#bars-container {
+    position: absolute;
+    inset: 18px 12px var(--plot-bottom);
+}
+
+    #bars-container:empty::before {
+        content: "Áp dụng dữ liệu để hiển thị mô phỏng";
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 16px;
+        color: var(--muted);
+        font-size: .88rem;
+    }
+
+#zero-axis {
+    position: absolute;
+    inset: 18px 12px var(--plot-bottom);
+    pointer-events: none;
+}
+
+    #zero-axis::after {
+        content: "";
+        position: absolute;
+        top: var(--zero-position);
+        inset-inline: 0;
+        border-top: 1px dashed var(--muted);
+        opacity: .55;
+    }
+
+#indices-container {
+    position: absolute;
+    inset-inline: 12px;
+    bottom: 7px;
+    height: 24px;
+    display: flex;
+    justify-content: space-around;
+    color: var(--muted);
+    font: .75rem/24px Consolas, monospace;
+}
+/* Hợp đồng CSS cho visualizer.js: giữ mỗi .bar là một DOM element;
+   JS thay đổi transform, top, height, width và class trạng thái. */
+.bar {
+    position: absolute;
+    min-height: 3px;
+    border-radius: 9px;
+    background: var(--bar);
+    color: var(--on-accent);
+    transition: transform var(--duration) var(--ease), top var(--duration) var(--ease), height var(--duration) var(--ease), width var(--duration) var(--ease), background-color 160ms, opacity 160ms;
+    will-change: transform;
+}
+
+.bar-value {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(.65rem, 1.2vw, .9rem);
+    font-weight: 750;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.bar.hole {
+    background: transparent;
+    border: 1px dashed var(--flag);
+    color: var(--muted);
+}
+
+.bar.compare, .legend-color.compare {
+    background: var(--compare);
+}
+
+.bar.swap, .legend-color.swap {
+    background: var(--swap);
+}
+
+.bar.selected, .bar.pivot, .legend-color.selected {
+    background: var(--flag);
+}
+
+.bar.move, .bar.insert, .legend-color.move {
+    background: var(--compare);
+}
+
+.bar.move, .legend-color.move {
+    outline: 2px dashed var(--flag);
+    outline-offset: -2px;
+}
+
+.bar.split, .bar.merge, .bar.heap {
+    outline: 2px solid var(--flag);
+    outline-offset: -2px;
+}
+
+.bar.sorted, .legend-color.sorted {
+    background: var(--sorted);
+    outline: none;
+}
+
+.bar.outside-range {
+    opacity: .35;
+}
+
+.bar.sorted {
+    opacity: 1;
+}
+
+.step-description {
+    min-height: 58px;
+    display: grid;
+    align-content: center;
+    padding: 12px 14px;
+    margin-block: 14px;
+    border-left: 3px solid var(--compare);
+    border-radius: 8px;
+    background: var(--surface-strong);
+    color: var(--text);
+    overflow-wrap: anywhere;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 16px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .75rem;
+    color: var(--muted);
+}
+
+.legend-color {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    background: var(--bar);
+}
+
+/* 7. KEY, BUFFER VÀ CÂY HEAP */
+.auxiliary-area {
+    margin-top: 16px;
+    display: grid;
+    gap: 12px;
+}
+
+    .auxiliary-area > div {
+        border: 1px solid var(--edge);
+        border-radius: 14px;
+        padding: 14px;
+        background: var(--code-bg);
+    }
+
+    .auxiliary-area h3 {
+        margin-bottom: 10px;
+        color: var(--muted);
+    }
+
+#key-value {
+    display: inline-flex;
+    min-width: 52px;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 8px 12px;
+    background: var(--flag);
+    color: var(--on-accent);
+    font-weight: 750;
+}
+
+#buffer-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.buffer-item {
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 8px;
+    padding: 6px;
+    background: var(--compare);
+    color: var(--on-accent);
+    font-weight: 700;
+}
+
+#heap-tree {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 140px;
+    overflow: visible;
+}
+
+.heap-edge {
+    stroke: var(--muted);
+    stroke-width: 1.5px;
+    opacity: .55;
+}
+
+.heap-node circle {
+    fill: var(--bar);
+    transition: fill 160ms;
+}
+
+.heap-node text {
+    fill: var(--on-accent);
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.heap-node.compare circle {
+    fill: var(--compare);
+}
+
+.heap-node.swap circle {
+    fill: var(--swap);
+}
+
+.heap-node.sorted circle {
+    fill: var(--sorted);
+}
+
+/* 8. MÃ NGUỒN C# VÀ BIẾN */
+.code-panel h2 {
+    margin-bottom: 14px;
+}
+
+.source-code {
+    margin: 0;
+    min-height: 290px;
+    max-height: 450px;
+    padding: 14px 0;
+    overflow: auto;
+    border: 1px solid var(--edge);
+    border-radius: 14px;
+    background: var(--code-bg);
+    font: .78rem/1.8 Consolas, "Courier New", monospace;
+    tab-size: 4;
+}
+
+    .source-code code {
+        display: block;
+        min-width: max-content;
+        padding-inline: 12px;
+    }
+
+#algorithm-code:empty::before {
+    content: "// Mã nguồn sẽ được hiển thị tại đây";
+    color: var(--muted);
+}
+
+.code-line {
+    display: block;
+    padding-inline: 8px;
+    border-left: 3px solid transparent;
+    white-space: pre;
+}
+
+    .code-line.active {
+        border-left-color: var(--compare);
+        background: color-mix(in srgb, var(--compare) 14%, transparent);
+    }
+
+.line-number {
+    display: inline-block;
+    min-width: 2.5em;
+    margin-right: 8px;
+    color: var(--muted);
+    user-select: none;
+}
+
+.variables-panel {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--edge);
+}
+
+    .variables-panel h3 {
+        margin-bottom: 8px;
+    }
+
+#variables-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: var(--muted);
+    font: .82rem/1.6 Consolas, monospace;
+    overflow-wrap: anywhere;
+}
+
+.variable-chip {
+    padding: 6px 10px;
+    border: 1px solid var(--edge);
+    border-radius: 8px;
+    background: var(--code-bg);
+    color: var(--flag);
+}
+
+/* 9. THỐNG KÊ VÀ BỘ ĐIỀU KHIỂN */
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.stat-card {
+    display: grid;
+    gap: 5px;
+    padding: 18px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+.stat-card strong {
+    color: var(--bar);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.stat-card:nth-child(1) strong {
+    color: var(--compare);
+}
+
+.stat-card:nth-child(2) strong {
+    color: var(--swap);
+}
+
+.stat-card:nth-child(3) strong {
+    color: var(--flag);
+}
+
+.player-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.progress-container {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 8px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--bar);
+    cursor: pointer;
+    margin: 6px 0;
+}
+
+.player-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.speed-control {
+    display: grid;
+    gap: 6px;
+    min-width: 125px;
+}
+
+/* 10. THÔNG TIN THUẬT TOÁN VÀ FOOTER */
+.algorithm-info {
+    display: grid;
+    gap: 16px;
+}
+
+#algorithm-description {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.complexity-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.complexity-card {
+    display: grid;
+    gap: 6px;
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    padding: 14px;
+    background: var(--code-bg);
+}
+
+    .complexity-card span {
+        color: var(--muted);
+        font-size: .8rem;
+    }
+
+    .complexity-card strong {
+        color: var(--compare);
+        font: 700 1.1rem Consolas, monospace;
+    }
+
+.algorithm-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+    .algorithm-details > div {
+        min-width: 0;
+        border-top: 1px solid var(--edge);
+        padding-top: 14px;
+    }
+
+    .algorithm-details ul, .algorithm-details ol {
+        padding-left: 20px;
+        margin: 8px 0 0;
+        color: var(--muted);
+    }
+
+    .algorithm-details li + li {
+        margin-top: 5px;
+    }
+
+.footer {
+    padding: 22px 16px 30px;
+    border-top: 1px solid var(--edge);
+    text-align: center;
+    color: var(--muted);
+    font-size: .82rem;
+}
+
+    .footer p + p {
+        margin-top: 5px;
+    }
+
+/* 11. RESPONSIVE — máy tính bảng và điện thoại */
+@media (max-width: 1050px) {
+    .algorithm-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .source-code {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 700px) {
+    .header-container, .container {
+        width: calc(100% - 28px);
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .container {
+        gap: 14px;
+        padding-top: 18px;
+    }
+
+    .input-options, .statistics, .complexity-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .algorithm-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .algorithm-details {
+        grid-template-columns: 1fr;
+    }
+
+    .visualization-area {
+        --plot-height: 230px;
+    }
+
+    .player-panel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .speed-control {
+        max-width: 160px;
+    }
+
+    .input-actions {
+        justify-content: stretch;
+    }
+
+        .input-actions .btn {
+            flex: 1;
+        }
+
+    .stat-card {
+        padding: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* 12. BỐ CỤC GỌN — ưu tiên quan sát và điều khiển mô phỏng */
+.player-panel {
+    position: sticky;
+    top: 8px;
+    z-index: 20;
+    align-self: start;
+    background: color-mix(in srgb, var(--bg) 94%, var(--bar));
+    box-shadow: 0 6px 24px var(--shadow);
+}
+
+@media (min-width: 1051px) {
+    .header-container {
+        min-height: 64px;
+        padding-block: 9px;
+    }
+
+    .logo {
+        flex-basis: 40px;
+        height: 40px;
+    }
+
+    .container {
+        padding-top: 14px;
+        gap: 12px;
+    }
+
+    .panel {
+        padding: 14px 16px;
+    }
+
+    .algorithm-section h2, .input-section h2 {
+        margin-bottom: 8px;
+    }
+
+    .algorithm-btn {
+        min-height: 40px;
+        padding-block: 8px;
+    }
+
+    #sort-form {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+        gap: 8px 16px;
+        align-items: start;
+    }
+
+    .input-options {
+        gap: 8px;
+    }
+
+    .input-group {
+        gap: 4px;
+    }
+
+    input:not([type="range"]), select {
+        min-height: 36px;
+        padding: 6px 10px;
+    }
+
+    .input-actions, .error-message {
+        grid-column: 1 / -1;
+    }
+
+        .input-actions .btn {
+            min-height: 34px;
+            padding-block: 6px;
+        }
+
+    .player-panel {
+        grid-template-columns: minmax(120px, 1fr) auto minmax(88px, 115px);
+        gap: 12px;
+        align-items: center;
+        padding: 10px 16px;
+    }
+
+    .progress-container {
+        grid-column: auto;
+        gap: 2px;
+    }
+
+    .player-controls {
+        justify-content: center;
+        gap: 6px;
+    }
+
+        .player-controls .btn {
+            min-height: 36px;
+            padding: 7px 10px;
+        }
+
+    .speed-control {
+        min-width: 0;
+        gap: 2px;
+    }
+
+    .workspace {
+        gap: 12px;
+    }
+
+    .panel-header, .code-panel h2 {
+        margin-bottom: 8px;
+    }
+
+    .visualization-area {
+        --plot-height: clamp(170px, 27vh, 290px);
+        --plot-bottom: 30px;
+    }
+
+    .source-code {
+        min-height: 0;
+        height: clamp(200px, 32vh, 330px);
+        max-height: none;
+    }
+
+    .step-description {
+        min-height: 42px;
+        margin-block: 8px;
+        padding: 7px 10px;
+    }
+
+    .legend {
+        gap: 5px 12px;
+    }
+
+    .variables-panel {
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+
+    .statistics {
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 10px 14px;
+        gap: 2px;
+    }
+
+        .stat-card strong {
+            font-size: 1.5rem;
+        }
+}
+/* Trên màn hình nhỏ, giữ bố cục cuộn tự nhiên để thanh điều khiển không che quá nhiều diện tích. */
+@media (max-width: 700px), (max-height: 520px) {
+    .player-panel {
+        position: static;
+    }
+}
+/* 13. BỔ SUNG HIỂN THỊ CỘT VÀ CÂY HEAP */
+
+/* Hiển thị nhãn bên ngoài khi cột quá thấp */
+.bar.small .bar-value {
+    top: 0;
+    transform: translate(-50%, -105%);
+    color: var(--text);
+    text-shadow: 0 1px 4px var(--bg);
+}
+
+/* Nhãn số âm nằm phía dưới cột thấp */
+.bar.small.negative .bar-value {
+    top: auto;
+    bottom: 0;
+    transform: translate(-50%, 105%);
+}
+
+/* Cho phép cuộn ngang nếu cây Heap quá rộng */
+#heap-container {
+    overflow-x: auto;
+}
+
+/* Giới hạn kích thước cột khi giữ nhiều phần tử */
+.bar {
+    overflow: visible;
+}
+
+#bars-container {
+    font-variant-numeric: tabular-nums;
+}

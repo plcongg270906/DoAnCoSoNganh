@@ -1,0 +1,614 @@
+﻿<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sorting Visualizer - Mô phỏng thuật toán sắp xếp</title>
+    <script>
+            try {
+                const theme = localStorage.getItem(
+                    "sorting-visualizer-theme"
+                );
+
+                document.documentElement.dataset.theme =
+                    theme === "light" ? "light" : "dark";
+            } catch {
+                document.documentElement.dataset.theme = "dark";
+            }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+
+    <header class="header">
+        <div class="header-container">
+
+            <a href="/" class="brand">
+                <span class="logo">SV</span>
+
+                <div class="brand-text">
+                    <h1>Sorting Visualizer</h1>
+                    <p>Trực quan hóa thuật toán sắp xếp</p>
+                </div>
+            </a>
+
+            <div class="header-actions">
+
+                <button id="theme-toggle"
+                        type="button"
+                        aria-label="Chuyển chế độ giao diện">
+                    Giao diện sáng / tối
+                </button>
+
+                <a class="github-link"
+                   href="https://github.com/plcongg270906/DoAnCoSoNganh"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    GitHub
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ==================== NỘI DUNG CHÍNH ==================== -->
+
+    <main class="container">
+
+        <!-- Lựa chọn thuật toán -->
+
+        <section class="algorithm-section">
+
+            <h2>Lựa chọn thuật toán</h2>
+
+            <div class="algorithm-list">
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="selection">
+                    Selection Sort
+                </button>
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="bubble">
+                    Bubble Sort
+                </button>
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="insertion">
+                    Insertion Sort
+                </button>
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="merge">
+                    Merge Sort
+                </button>
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="quick">
+                    Quick Sort
+                </button>
+
+                <button type="button"
+                        class="algorithm-btn"
+                        data-algorithm="heap">
+                    Heap Sort
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== DỮ LIỆU ĐẦU VÀO ==================== -->
+
+        <section class="panel input-section">
+
+            <h2>Dữ liệu đầu vào</h2>
+
+            <form id="sort-form">
+
+                <div class="input-group">
+
+                    <label for="array-input">
+                        Nhập mảng số nguyên
+                    </label>
+
+                    <input type="text"
+                           id="array-input"
+                           value="5, 2, 8, 1, 6, 3, 7, 4"
+                           placeholder="Ví dụ: 5, 2, 4, 1"
+                           autocomplete="off">
+
+                    <small class="input-hint">
+                        Các số nguyên được phân cách bằng dấu phẩy.
+                    </small>
+
+                </div>
+
+                <div class="input-options">
+
+                    <!-- Chiều sắp xếp -->
+
+                    <div class="input-group">
+
+                        <label for="sort-order">
+                            Chiều sắp xếp
+                        </label>
+
+                        <select id="sort-order">
+                            <option value="asc">Tăng dần</option>
+                            <option value="desc">Giảm dần</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- Số lượng phần tử ngẫu nhiên -->
+
+                    <div class="input-group">
+
+                        <label for="array-size">
+                            Số phần tử ngẫu nhiên
+                        </label>
+
+                        <input type="number"
+                               id="array-size"
+                               min="1"
+                               value="8"
+                               step="1">
+
+                    </div>
+
+
+                    <!-- Giá trị nhỏ nhất -->
+
+                    <div class="input-group">
+
+                        <label for="min-value">
+                            Giá trị nhỏ nhất
+                        </label>
+
+                        <input type="number"
+                               id="min-value"
+                               value="1"
+                               step="1">
+
+                    </div>
+
+
+                    <!-- Giá trị lớn nhất -->
+
+                    <div class="input-group">
+
+                        <label for="max-value">
+                            Giá trị lớn nhất
+                        </label>
+
+                        <input type="number"
+                               id="max-value"
+                               value="99"
+                               step="1">
+
+                    </div>
+
+                </div>
+
+                <div class="input-actions">
+
+                    <button type="button"
+                            id="random-btn"
+                            class="btn btn-secondary">
+                        Tạo ngẫu nhiên
+                    </button>
+
+                    <button type="submit"
+                            id="apply-btn"
+                            class="btn btn-primary">
+                        Áp dụng dữ liệu
+                    </button>
+
+                </div>
+
+                <!-- Thông báo lỗi dữ liệu -->
+
+                <p id="input-error"
+                   class="error-message"
+                   role="alert"
+                   hidden></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================== BỘ ĐIỀU KHIỂN ==================== -->
+
+        <section class="panel player-panel">
+
+            <!-- Thanh tua tiến trình -->
+
+            <div class="progress-container">
+
+                <label for="progress-slider">
+                    Tiến trình mô phỏng
+                </label>
+
+                <input type="range"
+                       id="progress-slider"
+                       min="0"
+                       max="0"
+                       value="0"
+                       step="1"
+                       disabled>
+
+            </div>
+
+
+            <!-- Các nút điều khiển -->
+
+            <div class="player-controls">
+
+                <button type="button"
+                        id="previous-btn"
+                        class="btn btn-secondary"
+                        disabled>
+                    Bước trước
+                </button>
+
+                <button type="button"
+                        id="play-btn"
+                        class="btn btn-primary"
+                        disabled>
+                    Bắt đầu
+                </button>
+
+                <button type="button"
+                        id="pause-btn"
+                        class="btn btn-secondary"
+                        disabled>
+                    Tạm dừng
+                </button>
+
+                <button type="button"
+                        id="next-btn"
+                        class="btn btn-secondary"
+                        disabled>
+                    Bước tiếp
+                </button>
+
+                <button type="button"
+                        id="reset-btn"
+                        class="btn btn-secondary"
+                        disabled>
+                    Đặt lại
+                </button>
+
+            </div>
+
+
+            <!-- Điều chỉnh tốc độ -->
+
+            <div class="speed-control">
+
+                <label for="speed-select">
+                    Tốc độ mô phỏng
+                </label>
+
+                <select id="speed-select">
+
+                    <option value="0.25">0.25x</option>
+
+                    <option value="0.5">0.5x</option>
+
+                    <option value="1" selected>1x</option>
+
+                    <option value="1.5">1.5x</option>
+
+                    <option value="2">2x</option>
+
+                    <option value="3">3x</option>
+
+                    <option value="4">4x</option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== KHU VỰC MÔ PHỎNG ==================== -->
+
+        <section class="workspace">
+
+            <!-- Vùng mô phỏng chính -->
+
+            <div class="panel visualization-panel">
+
+                <div class="panel-header">
+
+                    <h2 id="algorithm-title">
+                        
+                    </h2>
+
+                    <span id="simulation-status"
+                          class="status">
+                        Sẵn sàng
+                    </span>
+
+                </div>
+
+                <!-- Vùng hiển thị các cột -->
+
+                <div id="visualization-area"
+                     class="visualization-area">
+
+                    <div id="zero-axis"></div>
+
+                    <div id="bars-container"></div>
+
+                    <div id="indices-container"></div>
+
+                </div>
+
+
+                <!-- Vùng hiển thị dữ liệu riêng của thuật toán -->
+
+                <div id="auxiliary-area"
+                     class="auxiliary-area"
+                     hidden>
+
+                    <!-- Key của Insertion Sort -->
+
+                    <div id="key-container" hidden>
+
+                        <h3>Phần tử đang giữ tạm</h3>
+
+                        <div id="key-value"></div>
+
+                    </div>
+
+
+                    <!-- Buffer của Merge Sort -->
+
+                    <div id="buffer-container" hidden>
+
+                        <h3>Mảng phụ (Buffer)</h3>
+
+                        <div id="buffer-values"></div>
+
+                    </div>
+
+
+                    <!-- Cây nhị phân của Heap Sort -->
+
+                    <div id="heap-container" hidden>
+
+                        <h3>Cây nhị phân Heap</h3>
+
+                        <svg id="heap-tree"
+                             role="img"
+                             aria-label="Cây nhị phân Heap">
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Giải thích thao tác hiện tại -->
+
+                <div class="step-description"
+                     id="step-description"
+                     aria-live="polite">
+
+                    Hãy lựa chọn thuật toán và áp dụng dữ liệu
+                    để bắt đầu mô phỏng.
+
+                </div>
+
+
+                <!-- Chú thích màu sắc -->
+
+                <div class="legend">
+
+                    <div class="legend-item">
+                        <span class="legend-color default"></span>
+                        Chưa xử lý
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-color compare"></span>
+                        So sánh
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-color swap"></span>
+                        Hoán đổi
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-color selected"></span>
+                        Được chọn / Pivot
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-color move"></span>
+                        Dịch chuyển
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-color sorted"></span>
+                        Hoàn thành
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================== MÃ NGUỒN VÀ BIẾN ==================== -->
+
+            <aside class="panel code-panel">
+
+                <h2>Mã nguồn C#</h2>
+
+                <pre class="source-code"><code id="algorithm-code"></code></pre>
+
+                <div class="variables-panel">
+
+                    <h3>Trạng thái thuật toán</h3>
+
+                    <div id="variables-container">
+                        Chưa có dữ liệu.
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- ==================== THỐNG KÊ ==================== -->
+
+        <section class="statistics">
+
+            <div class="stat-card">
+
+                <span class="stat-label">So sánh</span>
+
+                <strong id="comparison-count">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="stat-label">Hoán đổi</span>
+
+                <strong id="swap-count">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="stat-label">Dịch chuyển</span>
+
+                <strong id="move-count">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+                <span class="stat-label">Tiến trình</span>
+
+                <strong id="step-count">0 / 0</strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== THÔNG TIN THUẬT TOÁN ==================== -->
+
+        <section class="panel algorithm-info">
+
+            <h2 id="info-title">
+                
+            </h2>
+
+            <p id="algorithm-description"></p>
+
+            <h3>Độ phức tạp thuật toán</h3>
+
+            <div class="complexity-grid">
+
+                <div class="complexity-card">
+
+                    <span>Trường hợp tốt nhất</span>
+
+                    <strong id="best-complexity">—</strong>
+
+                </div>
+
+                <div class="complexity-card">
+
+                    <span>Trường hợp trung bình</span>
+
+                    <strong id="average-complexity">—</strong>
+
+                </div>
+
+                <div class="complexity-card">
+
+                    <span>Trường hợp xấu nhất</span>
+
+                    <strong id="worst-complexity">—</strong>
+
+                </div>
+
+                <div class="complexity-card">
+
+                    <span>Không gian phụ</span>
+
+                    <strong id="space-complexity">—</strong>
+
+                </div>
+
+            </div>
+
+            <div class="algorithm-details">
+
+                <div>
+                    <h3>Nguyên lý hoạt động</h3>
+                    <ol id="algorithm-principles"></ol>
+                </div>
+
+                <div>
+                    <h3>Ưu điểm</h3>
+                    <ul id="algorithm-advantages"></ul>
+                </div>
+
+                <div>
+                    <h3>Nhược điểm</h3>
+                    <ul id="algorithm-disadvantages"></ul>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================== FOOTER ==================== -->
+
+    <footer class="footer">
+
+        <p>Sorting Visualizer — Đồ án cơ sở ngành</p>
+
+        <p>C# · ASP.NET Core Web API · HTML · CSS · JavaScript</p>
+
+    </footer>
+
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>

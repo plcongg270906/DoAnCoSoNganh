@@ -46,3 +46,11 @@ D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\refint\So
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\SortingVisualizer.pdb
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\SortingVisualizer.genruntimeconfig.cache
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\ref\SortingVisualizer.dll
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\fqy2vdia4y-{0}-3r8b2a0bt1-3r8b2a0bt1.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\6u2pvah6je-{0}-3r8b2a0bt1-3r8b2a0bt1.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\l0je5kawjf-{0}-3r8b2a0bt1-3r8b2a0bt1.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\00lbk6yb77-{0}-3r8b2a0bt1-3r8b2a0bt1.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\q37rknm8jw-{0}-raqrul50ij-raqrul50ij.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\zhhmay6jv8-{0}-ns7hq4dd5a-ns7hq4dd5a.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\41wj7jzhr9-{0}-jsy9se01zg-jsy9se01zg.gz
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\obj\Debug\net10.0\compressed\c2rx7h2xfe-{0}-1pmcmqxp29-1pmcmqxp29.gz
