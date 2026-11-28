@@ -669,6 +669,31 @@ function renderVariables(step) {
 
     // Heap Sort
     addVariable("heapSize", step.heapSize);
+
+    // Hiển thị lượt duyệt hiện tại của Bubble Sort
+    if (selectedAlgorithm === "bubble" &&
+        (step.type === "compare" ||
+            step.type === "swap")) {
+
+        addVariable(
+            "i",
+            (step.sortedIndices ?? []).length
+        );
+    }
+
+    // Hiển thị các biến con trỏ
+    for (const [name, index] of
+        Object.entries(step.pointers ?? {})) {
+
+        // Tránh hiển thị trùng biến
+        if (name === "holeIndex" ||
+            name === "pivotIndex") {
+
+            continue;
+        }
+
+        addVariable(name, index);
+    }
 }
 
 

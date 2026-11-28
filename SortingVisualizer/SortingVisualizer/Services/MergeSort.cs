@@ -54,7 +54,8 @@ namespace SortingVisualizer.Services
                 int[] indices,
                 string description,
                 int[]? range = null,
-                List<int>? buffer = null)
+                List<int>? buffer = null,
+                Dictionary<string, int>? pointers = null)
             {
                 steps.Add(new SortStep
                 {
@@ -66,7 +67,12 @@ namespace SortingVisualizer.Services
                         : [],
                     MergeRange = range ?? [], // Khác null thì lấy range, null thì lấy mảng rỗng
                     MergeBuffer = buffer?.ToArray(), // Khác null thì chuyển danh sách buffer thành mảng, null thì lấy null
-                    Description = description
+                    Description = description,
+
+                    // Lưu lại trạng thái các con trỏ
+                    Pointers = pointers == null
+                        ? new()
+                        : new Dictionary<string, int>(pointers)
                 });
             }
 
@@ -99,6 +105,7 @@ namespace SortingVisualizer.Services
                 Merge(left, mid, right);
             }
 
+
             // Hàm trộn hai đoạn mảng
             void Merge(int left, int mid, int right)
             {
@@ -111,6 +118,26 @@ namespace SortingVisualizer.Services
 
                 int[] range = new[] { left, mid, right };
 
+                // Lấy trạng thái hiện tại của các con trỏ
+                Dictionary<string, int> GetPointers()
+                {
+                    Dictionary<string, int> pointers = new();
+
+                    // Con trỏ i còn nằm trong nửa trái
+                    if (i <= mid)
+                    {
+                        pointers["i"] = i;
+                    }
+
+                    // Con trỏ j còn nằm trong nửa phải
+                    if (j <= right)
+                    {
+                        pointers["j"] = j;
+                    }
+
+                    return pointers;
+                }
+
                 // So sánh phần tử của hai nửa
                 while (i <= mid && j <= right)
                 {
@@ -119,7 +146,8 @@ namespace SortingVisualizer.Services
                         new[] { i, j },
                         $"So sánh {arr[i]} và {arr[j]}",
                         range,
-                        buffer);
+                        buffer,
+                        GetPointers());
 
                     bool takeLeft = ascending
                         ? arr[i] <= arr[j]
@@ -134,7 +162,8 @@ namespace SortingVisualizer.Services
                             new[] { i },
                             $"Đưa {arr[i]} vào mảng phụ",
                             range,
-                            buffer);
+                            buffer,
+                            GetPointers());
 
                         i++;
                     }
@@ -147,7 +176,8 @@ namespace SortingVisualizer.Services
                             new[] { j },
                             $"Đưa {arr[j]} vào mảng phụ",
                             range,
-                            buffer);
+                            buffer,
+                            GetPointers());
 
                         j++;
                     }
@@ -163,7 +193,8 @@ namespace SortingVisualizer.Services
                         new[] { i },
                         $"Đưa phần tử còn lại {arr[i]} vào mảng phụ",
                         range,
-                        buffer);
+                        buffer,
+                        GetPointers());
 
                     i++;
                 }
@@ -178,15 +209,32 @@ namespace SortingVisualizer.Services
                         new[] { j },
                         $"Đưa phần tử còn lại {arr[j]} vào mảng phụ",
                         range,
-                        buffer);
+                        buffer,
+                        GetPointers());
 
                     j++;
                 }
 
-                // Sao chép kết quả từ mảng phụ về mảng chính
-                for (int k = 0; k < buffer.Count; k++)
+                // Sao chép từng phần tử từ buffer về mảng chính
+                for (int k = left; k <= right; k++)
                 {
-                    arr[left + k] = buffer[k];
+                    // Vị trí tương ứng trong mảng phụ
+                    int bufferIndex = k - left;
+
+                    // Sao chép phần tử
+                    arr[k] = buffer[bufferIndex];
+
+                    // Ghi nhận bước sao chép
+                    Record(
+                        "copy",
+                        new[] { k },
+                        $"Sao chép buffer[{bufferIndex}] = {buffer[bufferIndex]} vào arr[{k}]",
+                        range,
+                        buffer,
+                        new Dictionary<string, int>
+                        {
+                            ["k"] = k
+                        });
                 }
 
                 // Ghi nhận bước trộn hoàn thành
@@ -197,6 +245,7 @@ namespace SortingVisualizer.Services
                     range,
                     buffer);
             }
+
 
             // Bắt đầu sắp xếp
             MergeSortRange(0, n - 1);

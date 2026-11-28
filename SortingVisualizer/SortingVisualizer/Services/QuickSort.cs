@@ -56,7 +56,8 @@ namespace SortingVisualizer.Services
                 int[] indices,
                 string description,
                 int? pivotIndex = null,
-                int[]? range = null)
+                int[]? range = null,
+                Dictionary<string, int>? pointers = null)
             {
                 steps.Add(new SortStep
                 {
@@ -66,7 +67,12 @@ namespace SortingVisualizer.Services
                     SortedIndices = sortedIndices.ToArray(),
                     PivotIndex = pivotIndex,
                     PartitionRange = range ?? [],
-                    Description = description
+                    Description = description,
+
+                    // Ghi nhận trạng thái các con trỏ
+                    Pointers = pointers == null
+                        ? new()
+                        : new Dictionary<string, int>(pointers)
                 });
             }
 
@@ -112,7 +118,7 @@ namespace SortingVisualizer.Services
                 QuickSortRange(pivotIndex + 1, right);
             }
 
-            // Hàm phân hoạch 
+            // Hàm phân hoạch
             int Partition(int left, int right)
             {
                 // Chọn phần tử cuối đoạn làm pivot
@@ -125,7 +131,11 @@ namespace SortingVisualizer.Services
                     new[] { right },
                     $"Chọn phần tử {pivot} làm pivot",
                     right,
-                    range);
+                    range,
+                    new Dictionary<string, int>
+                    {
+                        ["pivotIndex"] = right
+                    });
 
                 // Vị trí cuối của vùng thỏa mãn điều kiện
                 int i = left - 1;
@@ -139,7 +149,13 @@ namespace SortingVisualizer.Services
                         new[] { j, right },
                         $"So sánh {arr[j]} với pivot = {pivot}",
                         right,
-                        range);
+                        range,
+                        new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["j"] = j,
+                            ["pivotIndex"] = right
+                        });
 
                     // Xét chiều sắp xếp
                     bool shouldMove = ascending
@@ -161,7 +177,13 @@ namespace SortingVisualizer.Services
                                 new[] { i, j },
                                 $"Hoán đổi {arr[j]} và {arr[i]}",
                                 right,
-                                range);
+                                range,
+                                new Dictionary<string, int>
+                                {
+                                    ["i"] = i,
+                                    ["j"] = j,
+                                    ["pivotIndex"] = right
+                                });
                         }
                     }
                 }
@@ -181,7 +203,12 @@ namespace SortingVisualizer.Services
                         $"Đưa pivot {pivot} từ vị trí {right} " +
                         $"về vị trí {finalPivotIndex}",
                         finalPivotIndex,
-                        range);
+                        range,
+                        new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["pivotIndex"] = finalPivotIndex
+                        });
                 }
 
                 return finalPivotIndex;

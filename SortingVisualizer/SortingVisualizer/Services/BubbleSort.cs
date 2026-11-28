@@ -64,7 +64,12 @@ namespace SortingVisualizer.Services
                         Array = (int[])arr.Clone(),
                         Indices = new[] { j, j + 1 },
                         SortedIndices = sortedIndices.ToArray(),
-                        Description = $"So sánh {arr[j]} và {arr[j + 1]}"
+                        Description = $"So sánh {arr[j]} và {arr[j + 1]}",
+                        Pointers = new Dictionary<string, int>
+                        {
+                            ["j"] = j,
+                            ["j+1"] = j + 1
+                        }
                     });
 
                     // Xét chiều sắp xếp
@@ -87,7 +92,12 @@ namespace SortingVisualizer.Services
                             Array = (int[])arr.Clone(),
                             Indices = new[] { j, j + 1 },
                             SortedIndices = sortedIndices.ToArray(),
-                            Description = $"Hoán đổi {arr[j + 1]} và {arr[j]}"
+                            Description = $"Hoán đổi {arr[j + 1]} và {arr[j]}",
+                            Pointers = new Dictionary<string, int>
+                            {
+                                ["j"] = j,
+                                ["j+1"] = j + 1
+                            }
                         });
                     }
                 }

@@ -238,8 +238,12 @@ export const algorithms = {
             line('        buffer.Add(arr[i++]);', 'remaining-left'),
             line('    while (j <= right)'),
             line('        buffer.Add(arr[j++]);', 'remaining-right'),
-            line('    for (int k = 0; k < buffer.Count; k++)', 'merge'),
-            line('        arr[left + k] = buffer[k];', 'merge'),
+            line('    for (int k = left; k <= right; k++)', 'copy'),
+            line('    {'),
+            line('        int bufferIndex = k - left;', 'copy'),
+            line('        arr[k] = buffer[bufferIndex];', 'copy'),
+            line('    }'),
+            line('    // Hoàn thành trộn đoạn.', 'merge'),
             line('}'),
             line('MergeSortRange(0, n - 1);'),
             line('// Toàn bộ mảng đã sắp xếp.', 'done')
@@ -367,14 +371,14 @@ export const algorithms = {
             line('            bool shouldSelectLeft = ascending', 'compare-left'),
             line('                ? arr[left] > arr[selectedIndex]', 'compare-left'),
             line('                : arr[left] < arr[selectedIndex];', 'compare-left'),
-            line('            if (shouldSelectLeft) selectedIndex = left;'),
+            line('            if (shouldSelectLeft) selectedIndex = left;', 'select-left'),
             line('        }'),
             line('        if (right < heapSize)'),
             line('        {'),
             line('            bool shouldSelectRight = ascending', 'compare-right'),
             line('                ? arr[right] > arr[selectedIndex]', 'compare-right'),
             line('                : arr[right] < arr[selectedIndex];', 'compare-right'),
-            line('            if (shouldSelectRight) selectedIndex = right;'),
+            line('            if (shouldSelectRight) selectedIndex = right;', 'select-right'),
             line('        }'),
             line('        if (selectedIndex == root) break;'),
             line('        (arr[root], arr[selectedIndex]) =', 'swap-heapify'),
@@ -460,6 +464,14 @@ export function getHighlightedLines(
 
     // Xử lý riêng cho Heap Sort
     if (algorithm === "heap") {
+
+        // Highlight bước cập nhật selectedIndex
+        if (type === "select") {
+
+            type = indices[0] % 2 === 1
+                ? "select-left"
+                : "select-right";
+        }
 
         if (type === "compare" &&
             Number.isInteger(indices[1])) {

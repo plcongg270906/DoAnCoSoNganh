@@ -57,7 +57,8 @@ namespace SortingVisualizer.Services
                 string type,
                 int[] indices,
                 string description,
-                int heapSize)
+                int heapSize,
+                Dictionary<string, int>? pointers = null)
             {
                 steps.Add(new SortStep
                 {
@@ -66,22 +67,51 @@ namespace SortingVisualizer.Services
                     Indices = indices,
                     SortedIndices = sortedIndices.ToArray(),
                     HeapSize = heapSize,
-                    Description = description
+                    Description = description,
+
+                    // Lưu trạng thái các con trỏ
+                    Pointers = pointers == null
+                        ? new()
+                        : new Dictionary<string, int>(pointers)
                 });
             }
+
 
             // Điều chỉnh cấu trúc Heap
             void Heapify(int heapSize, int root)
             {
-                // Điều chỉnh Heap từ nút root
                 while (true)
                 {
                     // Vị trí phần tử lớn nhất hoặc nhỏ nhất
                     int selectedIndex = root;
 
-                    // Xác định vị trí hai nút con
+                    // Xác định hai nút con
                     int left = 2 * root + 1;
                     int right = 2 * root + 2;
+
+                    // Lấy trạng thái các con trỏ
+                    Dictionary<string, int> GetPointers()
+                    {
+                        Dictionary<string, int> pointers = new()
+                        {
+                            ["root"] = root
+                        };
+
+                        // Chỉ ghi nhận nút con hợp lệ
+                        if (left < heapSize)
+                        {
+                            pointers["left"] = left;
+                        }
+
+                        if (right < heapSize)
+                        {
+                            pointers["right"] = right;
+                        }
+
+                        pointers["selectedIndex"] = selectedIndex;
+
+                        return pointers;
+                    }
 
                     // Kiểm tra nút con bên trái
                     if (left < heapSize)
@@ -90,7 +120,8 @@ namespace SortingVisualizer.Services
                             "compare",
                             new[] { selectedIndex, left },
                             $"So sánh {arr[selectedIndex]} và {arr[left]}",
-                            heapSize);
+                            heapSize,
+                            GetPointers());
 
                         bool shouldSelectLeft = ascending
                             ? arr[left] > arr[selectedIndex]
@@ -99,6 +130,14 @@ namespace SortingVisualizer.Services
                         if (shouldSelectLeft)
                         {
                             selectedIndex = left;
+
+                            // Ghi nhận bước chọn nút con trái
+                            Record(
+                                "select",
+                                new[] { selectedIndex },
+                                $"Chọn nút con trái {arr[selectedIndex]} làm phần tử được chọn",
+                                heapSize,
+                                GetPointers());
                         }
                     }
 
@@ -109,7 +148,8 @@ namespace SortingVisualizer.Services
                             "compare",
                             new[] { selectedIndex, right },
                             $"So sánh {arr[selectedIndex]} và {arr[right]}",
-                            heapSize);
+                            heapSize,
+                            GetPointers());
 
                         bool shouldSelectRight = ascending
                             ? arr[right] > arr[selectedIndex]
@@ -118,10 +158,18 @@ namespace SortingVisualizer.Services
                         if (shouldSelectRight)
                         {
                             selectedIndex = right;
+
+                            // Ghi nhận bước chọn nút con phải
+                            Record(
+                                "select",
+                                new[] { selectedIndex },
+                                $"Chọn nút con phải {arr[selectedIndex]} làm phần tử được chọn",
+                                heapSize,
+                                GetPointers());
                         }
                     }
 
-                    // Nếu nút gốc đã thỏa mãn tính chất Heap
+                    // Nút gốc đã thỏa mãn tính chất Heap
                     if (selectedIndex == root)
                     {
                         break;
@@ -135,9 +183,10 @@ namespace SortingVisualizer.Services
                         "swap",
                         new[] { root, selectedIndex },
                         $"Hoán đổi {arr[selectedIndex]} và {arr[root]}",
-                        heapSize);
+                        heapSize,
+                        GetPointers());
 
-                    // Tiếp tục điều chỉnh Heap tại vị trí mới
+                    // Tiếp tục điều chỉnh tại vị trí mới
                     root = selectedIndex;
                 }
             }
@@ -167,7 +216,12 @@ namespace SortingVisualizer.Services
                     "swap",
                     new[] { 0, i },
                     $"Hoán đổi {arr[i]} và {arr[0]}",
-                    i + 1);
+                    i + 1,
+                    new Dictionary<string, int>
+                    {
+                        ["root"] = 0,
+                        ["i"] = i
+                    });
 
                 // Đánh dấu phần tử đã đúng vị trí
                 sortedIndices.Add(i);

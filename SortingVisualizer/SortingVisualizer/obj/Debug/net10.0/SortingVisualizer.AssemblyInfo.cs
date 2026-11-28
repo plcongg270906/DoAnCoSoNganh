@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SortingVisualizer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3417fce824a60f89d0f0ac519d60fa50d360729")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d627b56ed2f70fd712a46f121945ba4ccfaeb9d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("SortingVisualizer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SortingVisualizer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

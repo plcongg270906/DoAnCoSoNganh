@@ -1,14 +1,14 @@
-wwwroot\js\algorithms.js
 wwwroot\css\style.css
 wwwroot\index.html
+wwwroot\js\algorithms.js
 wwwroot\js\api.js
 wwwroot\js\main.js
 wwwroot\js\player.js
 wwwroot\js\utils.js
 wwwroot\js\visualizer.js
-D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\js\algorithms.js
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\css\style.css
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\index.html
+D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\js\algorithms.js
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\js\api.js
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\js\main.js
 D:\DoAnCoSoNganh\SortingVisualizer\SortingVisualizer\wwwroot\js\player.js

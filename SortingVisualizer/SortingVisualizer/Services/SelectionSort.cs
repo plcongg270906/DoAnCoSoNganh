@@ -63,7 +63,13 @@ namespace SortingVisualizer.Services
                         Array = (int[])arr.Clone(),
                         Indices = new[] { selectedIndex, j },
                         SortedIndices = sortedIndices.ToArray(),
-                        Description = $"So sánh {arr[selectedIndex]} và {arr[j]}"
+                        Description = $"So sánh {arr[selectedIndex]} và {arr[j]}",
+                        Pointers = new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["j"] = j,
+                            ["selectedIndex"] = selectedIndex
+                        }
                     });
 
                     // Xét theo chiều sắp xếp
@@ -84,7 +90,13 @@ namespace SortingVisualizer.Services
                             SortedIndices = sortedIndices.ToArray(),
                             Description = ascending
                                 ? $"Tìm thấy phần tử nhỏ nhất mới: {arr[selectedIndex]}"
-                                : $"Tìm thấy phần tử lớn nhất mới: {arr[selectedIndex]}"
+                                : $"Tìm thấy phần tử lớn nhất mới: {arr[selectedIndex]}",
+                            Pointers = new Dictionary<string, int>
+                            {
+                                ["i"] = i,
+                                ["j"] = j,
+                                ["selectedIndex"] = selectedIndex
+                            }
                         });
                     }
                 }
@@ -101,7 +113,12 @@ namespace SortingVisualizer.Services
                         Array = (int[])arr.Clone(),
                         Indices = new[] { i, selectedIndex },
                         SortedIndices = sortedIndices.ToArray(),
-                        Description = $"Hoán đổi {arr[selectedIndex]} và {arr[i]}"
+                        Description = $"Hoán đổi {arr[selectedIndex]} và {arr[i]}",
+                        Pointers = new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["selectedIndex"] = selectedIndex
+                        }
                     });
                 }
 

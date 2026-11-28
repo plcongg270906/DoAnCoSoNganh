@@ -61,7 +61,15 @@ namespace SortingVisualizer.Services
                     SortedIndices = [],
                     KeyValue = key,
                     HoleIndex = i,
-                    Description = $"Chọn phần tử {key} làm key"
+                    Description = $"Chọn phần tử {key} làm key",
+
+                    // Ghi nhận vị trí các con trỏ
+                    Pointers = new Dictionary<string, int>
+                    {
+                        ["i"] = i,
+                        ["j"] = j,
+                        ["holeIndex"] = i
+                    }
                 });
 
                 while (j >= 0)
@@ -75,7 +83,15 @@ namespace SortingVisualizer.Services
                         SortedIndices = [],
                         KeyValue = key,
                         HoleIndex = j + 1,
-                        Description = $"So sánh {arr[j]} với key = {key}"
+                        Description = $"So sánh {arr[j]} với key = {key}",
+
+                        // Cập nhật vị trí các con trỏ
+                        Pointers = new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["j"] = j,
+                            ["holeIndex"] = j + 1
+                        }
                     });
 
                     bool shouldMove = ascending
@@ -99,7 +115,15 @@ namespace SortingVisualizer.Services
                         SortedIndices = [],
                         KeyValue = key,
                         HoleIndex = j,
-                        Description = $"Dịch chuyển {arr[j]} từ vị trí {j} sang vị trí {j + 1}"
+                        Description = $"Dịch chuyển {arr[j]} từ vị trí {j} sang vị trí {j + 1}",
+
+                        // Ô trống đã chuyển sang trái
+                        Pointers = new Dictionary<string, int>
+                        {
+                            ["i"] = i,
+                            ["j"] = j,
+                            ["holeIndex"] = j
+                        }
                     });
 
                     j--;
@@ -117,9 +141,18 @@ namespace SortingVisualizer.Services
                     SortedIndices = [],
                     KeyValue = null,
                     HoleIndex = null,
-                    Description = $"Chèn key = {key} vào vị trí {j + 1}"
+                    Description = $"Chèn key = {key} vào vị trí {j + 1}",
+
+                    // Đánh dấu vị trí chèn
+                    Pointers = new Dictionary<string, int>
+                    {
+                        ["i"] = i,
+                        ["j"] = j,
+                        ["j+1"] = j + 1
+                    }
                 });
             }
+
 
             // Ghi nhận bước hoàn thành
             steps.Add(new SortStep

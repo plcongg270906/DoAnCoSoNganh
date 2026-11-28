@@ -137,15 +137,18 @@ button {
     }
 
 .logo {
-    display: grid;
-    place-items: center;
-    flex: 0 0 46px;
-    height: 46px;
-    border-radius: 15px;
-    background: linear-gradient(140deg, var(--bar), var(--compare));
-    color: var(--on-accent);
-    font-size: 1.05rem;
-    font-weight: 850;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #8b7bff, #39d0ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #08111f;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.8px;
+    box-shadow: 0 0 18px rgba(57, 208, 255, 0.25);
 }
 
 .brand-text p {
@@ -1080,4 +1083,707 @@ input[type="range"] {
 .status[data-state="done"] {
     color: var(--sorted);
     border-color: var(--sorted);
+}
+
+/* ==================================================
+   15. CON TRỎ THUẬT TOÁN
+   ================================================== */
+
+/* Dành thêm không gian bên dưới biểu đồ */
+.visualization-area.has-pointers {
+    --plot-bottom: 72px;
+}
+
+/* Đưa hàng chỉ số lên phía trên con trỏ */
+.visualization-area.has-pointers #indices-container {
+    bottom: 39px;
+}
+
+/* Vùng chứa các con trỏ */
+.pointer-layer {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 5px;
+    height: 28px;
+
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Thiết kế chung cho con trỏ */
+.array-pointer {
+    --pointer-color: var(--flag);
+
+    position: absolute;
+    top: 9px;
+    left: 0;
+
+    min-width: 24px;
+    height: 20px;
+    padding: 0 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    background: var(--pointer-color);
+    color: var(--on-accent);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-style: italic;
+
+    white-space: nowrap;
+
+    transform: translateX(-50%);
+
+    opacity: 0;
+
+    box-shadow: 0 0 10px
+        color-mix(
+            in srgb,
+            var(--pointer-color) 35%,
+            transparent
+        );
+
+    transition:
+        left var(--duration) var(--ease),
+        opacity 180ms ease;
+}
+
+/* Mũi tên tam giác hướng lên */
+.array-pointer::before {
+    content: "";
+
+    position: absolute;
+    top: -6px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid var(--pointer-color);
+}
+
+/* Hiển thị con trỏ */
+.array-pointer.visible {
+    opacity: 1;
+}
+
+/* Con trỏ i - xanh cyan */
+.array-pointer[data-pointer="i"] {
+    --pointer-color: var(--compare);
+}
+
+/* Con trỏ j - hồng */
+.array-pointer[data-pointer="j"] {
+    --pointer-color: var(--swap);
+}
+
+/* Con trỏ k - vàng */
+.array-pointer[data-pointer="k"] {
+    --pointer-color: var(--flag);
+}
+
+/* ==================================================
+   16. KHUNG PHẠM VI XỬ LÝ
+   ================================================== */
+
+/* Vùng chứa khung phạm vi */
+.range-layer {
+    position: absolute;
+    /* Cùng kích thước với vùng chứa các cột */
+    inset: 18px 12px var(--plot-bottom);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Khung đánh dấu phạm vi đang xử lý */
+.active-range {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    box-sizing: border-box;
+    border: 1.5px dashed color-mix( in srgb, var(--compare) 55%, transparent );
+    border-radius: 12px;
+    background: color-mix( in srgb, var(--compare) 4%, transparent );
+    opacity: 0;
+    transition: left var(--duration) var(--ease), width var(--duration) var(--ease), opacity 180ms ease;
+}
+
+    /* Hiển thị khung */
+    .active-range.visible {
+        opacity: 1;
+    }
+
+/* Đường phân chia hai nửa của Merge Sort */
+.range-divider {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 50%;
+    border-left: 1px dashed color-mix( in srgb, var(--compare) 35%, transparent );
+    transition: left var(--duration) var(--ease);
+}
+
+/* Đảm bảo khung nằm phía sau các cột */
+#zero-axis {
+    z-index: 1;
+}
+
+#bars-container {
+    z-index: 2;
+}
+
+#indices-container {
+    z-index: 3;
+}
+/* ==================================================
+   17. SAO CHÉP PHẦN TỬ TRONG MERGE SORT
+   ================================================== */
+
+/* Phần tử đích trong mảng chính */
+.bar.copy {
+    background: var(--flag);
+    outline: 2px solid var(--flag);
+    outline-offset: 2px;
+    box-shadow: 0 0 12px color-mix( in srgb, var(--flag) 30%, transparent );
+}
+
+/* Phần tử nguồn trong buffer */
+.buffer-item.copy-source {
+    background: var(--flag);
+    color: var(--on-accent);
+    outline: 2px solid var(--flag);
+    outline-offset: 3px;
+    box-shadow: 0 0 12px color-mix( in srgb, var(--flag) 30%, transparent );
+}
+/* ==================================================
+   18. ANIMATION SAO CHÉP TỪ BUFFER
+   ================================================== */
+
+/* Làm hệ tọa độ cho phần tử đang di chuyển */
+.visualization-panel {
+    position: relative;
+}
+
+/* Bản sao của phần tử đang di chuyển */
+.copy-ghost {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--flag);
+    color: var(--on-accent);
+    border: 2px solid var(--flag);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 0 16px color-mix( in srgb, var(--flag) 45%, transparent );
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 15;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* ==================================================
+   19. ANIMATION ĐƯA PHẦN TỬ VÀO BUFFER
+   ================================================== */
+
+/* Bản sao di chuyển từ mảng chính xuống buffer */
+.copy-ghost.move-ghost {
+    background: var(--compare);
+
+    border-color: var(--compare);
+
+    color: var(--on-accent);
+
+    box-shadow: 0 0 16px
+        color-mix(
+            in srgb,
+            var(--compare) 45%,
+            transparent
+        );
+}
+
+/* Ô trống chờ phần tử được đưa vào buffer */
+.buffer-item.move-placeholder {
+    background: transparent;
+
+    border: 2px dashed var(--compare);
+
+    color: transparent;
+
+    box-sizing: border-box;
+
+    box-shadow: none;
+}
+
+/* ==================================================
+   20. XỬ LÝ CON TRỎ TRÙNG VỊ TRÍ
+   ================================================== */
+
+/* Dành thêm không gian phía trên nếu có con trỏ trùng */
+.visualization-area.has-pointers {
+    --pointer-top-extra: 0px;
+    --pointer-plot-top: calc(18px + var(--pointer-top-extra));
+    --plot-bottom: 72px;
+    min-height: calc( var(--plot-height) + var(--plot-bottom) + var(--pointer-top-extra) + 24px );
+}
+
+    /* Đồng bộ vị trí các thành phần trong biểu đồ */
+    .visualization-area.has-pointers #bars-container,
+    .visualization-area.has-pointers #zero-axis,
+    .visualization-area.has-pointers .range-layer {
+        top: var(--pointer-plot-top);
+    }
+
+    /* Giữ nguyên vị trí hàng chỉ số */
+    .visualization-area.has-pointers #indices-container {
+        bottom: 39px;
+    }
+
+/* Vùng con trỏ bao phủ toàn bộ biểu đồ */
+.pointer-layer {
+    top: 0;
+    bottom: 0;
+    height: auto;
+}
+
+/* Bổ sung chuyển động theo chiều dọc */
+.array-pointer {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: calc( var(--pointer-slot-width, 100%) - 4px );
+    transition: left var(--duration) var(--ease), top var(--duration) var(--ease), opacity 180ms ease;
+}
+
+/* Giới hạn độ dài nhãn */
+.pointer-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mũi tên của con trỏ phía trên hướng xuống */
+.array-pointer[data-side="top"]::before {
+    top: auto;
+    bottom: -6px;
+    border-top: 6px solid var(--pointer-color);
+    border-bottom: none;
+}
+
+/* Ẩn mũi tên của các con trỏ xếp thêm phía trên */
+.array-pointer[data-stacked="true"]::before {
+    display: none;
+}
+
+/* Màu của các con trỏ bổ sung */
+.array-pointer[data-pointer="selectedIndex"],
+.array-pointer[data-pointer="pivotIndex"],
+.array-pointer[data-pointer="pivot"],
+.array-pointer[data-pointer="root"] {
+    --pointer-color: var(--flag);
+}
+
+.array-pointer[data-pointer="left"] {
+    --pointer-color: var(--compare);
+}
+
+.array-pointer[data-pointer="right"] {
+    --pointer-color: var(--swap);
+}
+/* ==================================================
+   21. CON TRỎ BUBBLE SORT
+   ================================================== */
+
+/* Con trỏ phần tử liền kề */
+.array-pointer[data-pointer="j+1"] {
+    --pointer-color: var(--compare);
+}
+/* ==================================================
+   22. CON TRỎ INSERTION SORT
+   ================================================== */
+
+/* Con trỏ vị trí ô trống */
+.array-pointer[data-pointer="holeIndex"] {
+    --pointer-color: var(--flag);
+}
+/* ==================================================
+   23. ANIMATION KEY CỦA INSERTION SORT
+   ================================================== */
+
+/* Phần tử key đang di chuyển */
+.copy-ghost.key-ghost {
+    background: var(--flag);
+    color: var(--on-accent);
+    border-color: var(--flag);
+    box-shadow: 0 0 16px color-mix( in srgb, var(--flag) 45%, transparent );
+}
+
+/* Ô giữ tạm trong lúc key đang di chuyển */
+#key-value.key-flight-placeholder {
+    background: transparent;
+    color: transparent;
+    text-shadow: none;
+    outline: 2px dashed var(--flag);
+    box-shadow: none;
+}
+
+/* ==================================================
+   24. ANIMATION CÂY HEAP SORT
+   ================================================== */
+
+/* Chuyển động của nút trên cây */
+.heap-node {
+    transition: transform var(--heap-duration, 520ms) var(--ease);
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+/* Chuyển đổi màu sắc của đường nối */
+.heap-edge {
+    transition: stroke 180ms ease, stroke-width 180ms ease, opacity 180ms ease;
+}
+
+    /* Đường nối không còn thuộc Heap */
+    .heap-edge.inactive {
+        stroke: var(--muted);
+        stroke-dasharray: 5 6;
+        opacity: 0.25;
+    }
+
+/* Nút đã hoàn thành */
+.heap-node.sorted circle {
+    fill: var(--sorted);
+}
+
+/* Nhãn con trỏ trên cây */
+.heap-pointer-text {
+    font-family: inherit;
+    font-weight: 700;
+    font-style: italic;
+    pointer-events: none;
+}
+/* Nút được chọn trong Heap Sort */
+.heap-node.selected circle,
+.heap-node.select circle {
+    fill: var(--flag);
+    filter: drop-shadow( 0 0 6px var(--flag) );
+}
+
+/* ==================================================
+   25. HIỆU ỨNG NÂNG CAO HEAP SORT
+   ================================================== */
+
+/* Đường nối đang so sánh */
+.heap-edge.compare {
+    stroke: var(--compare);
+    stroke-width: 2.8px;
+    opacity: 1;
+    filter: drop-shadow( 0 0 5px var(--compare) );
+}
+
+/* Đường nối đến nút được chọn */
+.heap-edge.selected {
+    stroke: var(--flag);
+    stroke-width: 3;
+    opacity: 1;
+    filter: drop-shadow( 0 0 5px var(--flag) );
+}
+
+/* Đường nối đang hoán đổi */
+.heap-edge.swap {
+    stroke: var(--swap);
+    stroke-width: 3.2px;
+    opacity: 1;
+    filter: drop-shadow( 0 0 6px var(--swap) );
+}
+
+
+/* Chuyển động trên đường nối */
+.heap-edge.compare,
+.heap-edge.selected,
+.heap-edge.swap {
+    stroke-dasharray: 8 5;
+    animation: heap-edge-flow var(--heap-duration, 520ms) linear infinite;
+}
+
+@keyframes heap-edge-flow {
+
+    from {
+        stroke-dashoffset: 13;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+
+/* Nhóm hình ảnh bên trong nút */
+.heap-node-body {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+
+    /* Nút di chuyển lên trên */
+    .heap-node-body.rise {
+        animation: heap-node-rise var(--heap-duration, 520ms) var(--ease);
+    }
+
+
+    /* Nút di chuyển xuống dưới */
+    .heap-node-body.sink {
+        animation: heap-node-sink var(--heap-duration, 520ms) var(--ease);
+    }
+
+
+/* Hiệu ứng phóng to nhẹ */
+@keyframes heap-node-rise {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.16);
+        filter: brightness(1.15);
+    }
+}
+
+
+/* Hiệu ứng thu nhỏ nhẹ */
+@keyframes heap-node-sink {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(0.86);
+        filter: brightness(0.9);
+    }
+}
+
+
+/* Ưu tiên thiết lập giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+
+    .heap-edge,
+    .heap-node-body {
+        animation: none !important;
+    }
+}
+
+/* ==================================================
+   27. HIỆU ỨNG NEON GLOW CHO 6 THUẬT TOÁN
+   ================================================== */
+
+
+/* ---------- MÀU PHÁT SÁNG ---------- */
+
+/* Trạng thái mặc định: màu tím */
+.bar,
+.heap-node {
+    --glow-color: var(--bar);
+    --glow-strength: 35%;
+    --glow-radius: 9px;
+}
+
+
+/* So sánh: màu cyan */
+.bar.compare,
+.heap-node.compare {
+    --glow-color: var(--compare);
+    --glow-strength: 60%;
+    --glow-radius: 13px;
+}
+
+
+/* Hoán đổi: màu hồng */
+.bar.swap,
+.heap-node.swap {
+    --glow-color: var(--swap);
+    --glow-strength: 65%;
+    --glow-radius: 14px;
+}
+
+
+/* Phần tử được chọn hoặc pivot */
+.bar.select,
+.bar.selected,
+.bar.pivot,
+.heap-node.select,
+.heap-node.selected {
+    --glow-color: var(--flag);
+    --glow-strength: 65%;
+    --glow-radius: 14px;
+}
+
+
+/* Dịch chuyển và chèn phần tử */
+.bar.move,
+.bar.insert {
+    --glow-color: var(--compare);
+    --glow-strength: 60%;
+    --glow-radius: 13px;
+}
+
+
+/* Sao chép từ buffer về mảng chính */
+.bar.copy {
+    --glow-color: var(--flag);
+    --glow-strength: 60%;
+    --glow-radius: 13px;
+}
+
+
+/* Chia đoạn, trộn đoạn và xây dựng Heap */
+.bar.split,
+.bar.merge,
+.bar.heap,
+.heap-node.heap {
+    --glow-color: var(--flag);
+    --glow-strength: 45%;
+    --glow-radius: 10px;
+}
+
+
+/* Phần tử đã sắp xếp */
+.bar.sorted,
+.heap-node.sorted {
+    --glow-color: var(--sorted);
+    --glow-strength: 45%;
+    --glow-radius: 10px;
+}
+
+
+/* ---------- PHÁT SÁNG CÁC CỘT ---------- */
+
+.bar:not(.hole) {
+
+    box-shadow:
+
+        0 0 var(--glow-radius)
+        color-mix(
+            in srgb,
+            var(--glow-color)
+            var(--glow-strength),
+            transparent
+        ),
+
+        0 0 3px
+        color-mix(
+            in srgb,
+            var(--glow-color) 30%,
+            transparent
+        );
+}
+
+
+/* Không phát sáng ô trống */
+.bar.hole {
+    box-shadow: none;
+}
+
+
+/* Giảm phát sáng phần tử ngoài phạm vi */
+.bar.outside-range {
+    box-shadow: none;
+}
+
+
+/* ---------- PHÁT SÁNG CÂY HEAP ---------- */
+
+.heap-node circle {
+
+    filter: drop-shadow(
+
+        0 0 var(--glow-radius)
+
+        color-mix(
+            in srgb,
+            var(--glow-color)
+            var(--glow-strength),
+            transparent
+        )
+    );
+
+    transition:
+
+        fill 160ms ease,
+
+        filter 180ms ease;
+}
+
+
+/* ---------- PHÁT SÁNG KEY ---------- */
+
+#key-value {
+
+    box-shadow:
+
+        0 0 12px
+        color-mix(
+            in srgb,
+            var(--flag) 55%,
+            transparent
+        );
+}
+
+
+/* ---------- PHÁT SÁNG BUFFER ---------- */
+
+.buffer-item {
+
+    box-shadow:
+
+        0 0 10px
+        color-mix(
+            in srgb,
+            var(--compare) 45%,
+            transparent
+        );
+}
+
+
+/* Phần tử đang được sao chép */
+.buffer-item.copy-source {
+
+    box-shadow:
+
+        0 0 13px
+        color-mix(
+            in srgb,
+            var(--flag) 60%,
+            transparent
+        );
+}
+
+
+/* Không phát sáng các ô giữ chỗ */
+#key-value.key-flight-placeholder,
+.buffer-item.move-placeholder {
+
+    box-shadow: none;
+}
+/* Giảm ánh sáng neon trong Light Mode */
+
+[data-theme="light"] .bar,
+[data-theme="light"] .heap-node {
+    --glow-strength: 25%;
+    --glow-radius: 7px;
 }

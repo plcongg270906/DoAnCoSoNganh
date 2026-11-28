@@ -37,5 +37,8 @@
 
         // Số lượng phần tử thuộc vùng Heap đang xử lý
         public int? HeapSize { get; set; }
+
+        // Lưu tên và vị trí của các con trỏ tại từng bước mô phỏng
+        public Dictionary<string, int> Pointers { get; set; } = new();
     }
 }
